@@ -1,6 +1,7 @@
 require "data_pipe/version"
 require 'data_pipe/loader'
 require 'data_pipe/writer'
+require 'data_pipe/transformation/schema'
 require 'ostruct'
 
 module DataPipe
@@ -37,6 +38,26 @@ module DataPipe
       last_step.process!
     end
 
+    def apply_schema(schema)
+      pipe << SchemaTransformation.new(schema)
+    end
+
+    def date_field(opts={})
+      DateFieldSchema.new(opts)
+    end
+
+    def string_field(opts={})
+      StringFieldSchema.new(opts)
+    end
+
+    def int_field(opts={})
+      IntFieldSchema.new(opts)
+    end
+
+    def float_field(opts={})
+      FloatFieldSchema.new(opts)
+    end
+
     private
 
     def guess_resource_type(resource_path)
@@ -53,8 +74,8 @@ module DataPipe
 
     def get_writer(type, output, params)
       case type
-      when :csv
-        CSVWriter.new(output, params)
+      when :csv then CSVWriter.new(output, params)
+      when :json then JSONWriter.new(output, params)
       end
     end
   end
