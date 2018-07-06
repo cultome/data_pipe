@@ -1,3 +1,5 @@
+require "data_pipe/record"
+require "ostruct"
 require "csv"
 
 module DataPipe
@@ -15,11 +17,16 @@ module DataPipe
 
     def each
       CSV.foreach(resource_path, params) do |row|
-        if row.respond_to? :headers
-          yield row.to_h
+        rec = if row.respond_to? :headers
+                props = OpenStruct.new(headers: true)
+          Record.new(row.to_h, props)
         else
-          yield ((0...row.size).zip(row)).to_h
+          data = (0...row.size).map(&:to_s).zip(row)
+          props = OpenStruct.new(headers: false)
+          Record.new(data.to_h, props)
         end
+
+        yield rec
       end
     end
 

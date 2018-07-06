@@ -54,7 +54,7 @@ module DataPipe
     def get_writer(type, output, params)
       case type
       when :csv
-        CSVWriter.new(output)
+        CSVWriter.new(output, params)
       end
     end
   end
