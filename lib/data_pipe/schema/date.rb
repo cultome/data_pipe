@@ -1,13 +1,8 @@
+require "data_pipe/schema/field_schema"
 require "date"
 
 module DataPipe
-  class DateFieldSchema
-    attr_reader :params
-
-    def initialize(params)
-      @params = params
-    end
-
+  class DateFieldSchema < FieldSchema
     def apply(value)
       Date.strptime(value, params.format)
     rescue

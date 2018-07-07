@@ -1,12 +1,7 @@
+require "data_pipe/schema/field_schema"
 
 module DataPipe
-  class IntFieldSchema
-    attr_reader :params
-
-    def initialize(params)
-      @params = params
-    end
-
+  class IntFieldSchema < FieldSchema
     def apply(value)
       int_val = value.to_i
       raise "validation error" unless int_val >= params.min && int_val <= params.max
