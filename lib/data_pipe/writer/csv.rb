@@ -1,27 +1,11 @@
 
 module DataPipe
-  class CSVWriter
-    attr_reader :params
-    attr_reader :output
-    attr_reader :input
+  class CSVWriter < Writer
 
     SEPARATOR = ","
 
-    def initialize(output, params)
-      @params = params
-      @output = output
-    end
-
     def write_header?
       params.headers.nil? ? false : params.headers
-    end
-
-    def set_input(step)
-      @input = step
-    end
-
-    def each
-      input.each{|record| yield record }
     end
 
     def process!
