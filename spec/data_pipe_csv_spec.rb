@@ -14,7 +14,7 @@ date,string,int,float
       FILE
     end
 
-    it "writes only the data file" do
+    it "writes only the data" do
       output = StringIO.new
 
       DataPipe.create do
@@ -27,7 +27,7 @@ date,string,int,float
       FILE
     end
 
-    it "writes also the header" do
+    it "writes along the header" do
       output = StringIO.new
 
       DataPipe.create do
@@ -41,7 +41,7 @@ date,string,int,float
       FILE
     end
 
-    it "ignore the write of headers if were not parsed" do
+    it "ignore headers if not parsed" do
       output = StringIO.new
 
       DataPipe.create do
@@ -74,8 +74,8 @@ date,string,int,float
       FILE
     end
 
-    context "validates against a schema" do
-      it "success #date_field" do
+    context "validates with schema" do
+      it "date_field success" do
         output = StringIO.new
 
         DataPipe.create do
@@ -91,7 +91,7 @@ date,string,int,float
         FILE
       end
 
-      it "failed #date_field" do
+      it "date_field failed" do
         pipe = DataPipe.create do
           load_from "spec/sample/1.csv", headers: true
           apply_schema({
@@ -102,7 +102,7 @@ date,string,int,float
         expect{ pipe.process! }.to raise_error "validation error"
       end
 
-      it "success #string_field" do
+      it "string_field success" do
         output = StringIO.new
 
         DataPipe.create do
@@ -118,7 +118,7 @@ date,string,int,float
         FILE
       end
 
-      it "failed #string_field" do
+      it "string_field failed" do
         pipe = DataPipe.create do
           load_from "spec/sample/1.csv", headers: true
           apply_schema({
@@ -129,7 +129,7 @@ date,string,int,float
         expect{ pipe.process! }.to raise_error "validation error"
       end
 
-      it "success #int_field" do
+      it "int_field success" do
         output = StringIO.new
 
         DataPipe.create do
@@ -145,7 +145,7 @@ date,string,int,float
         FILE
       end
 
-      it "failed #int_field" do
+      it "int_field failed" do
         pipe = DataPipe.create do
           load_from "spec/sample/1.csv", headers: true
           apply_schema({
@@ -156,7 +156,7 @@ date,string,int,float
         expect{ pipe.process! }.to raise_error "validation error"
       end
 
-      it "success #float_field" do
+      it "float_field success" do
         output = StringIO.new
 
         DataPipe.create do
@@ -172,7 +172,7 @@ date,string,int,float
         FILE
       end
 
-      it "failed #float_field" do
+      it "float_field failed" do
         pipe = DataPipe.create do
           load_from "spec/sample/1.csv", headers: true
           apply_schema({
@@ -182,6 +182,6 @@ date,string,int,float
 
         expect{ pipe.process! }.to raise_error "validation error"
       end
-    end
+    end # context
   end
 end
