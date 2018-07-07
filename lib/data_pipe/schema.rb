@@ -5,7 +5,7 @@ require 'data_pipe/schema/int'
 require 'data_pipe/schema/float'
 
 module DataPipe
-  class SchemaTransformation
+  class Schema
     attr_reader :schema
     attr_reader :input
 

@@ -1,5 +1,5 @@
 
-RSpec.describe DataPipe do
+RSpec.describe DataPipe::Schema do
   context "validates with schema" do
     it "date_field success" do
       output = StringIO.new

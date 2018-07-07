@@ -39,7 +39,7 @@ module DataPipe
     end
 
     def apply_schema(schema)
-      pipe << SchemaTransformation.new(schema)
+      pipe << Schema.new(schema)
     end
 
     def date_field(opts={})
