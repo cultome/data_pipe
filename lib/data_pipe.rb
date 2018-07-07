@@ -1,7 +1,7 @@
 require "data_pipe/version"
 require 'data_pipe/loader'
 require 'data_pipe/writer'
-require 'data_pipe/transformation/schema'
+require 'data_pipe/schema'
 require 'ostruct'
 
 module DataPipe
@@ -43,19 +43,23 @@ module DataPipe
     end
 
     def date_field(opts={})
-      DateFieldSchema.new(opts)
+      params = OpenStruct.new(opts)
+      DateFieldSchema.new(params)
     end
 
     def string_field(opts={})
-      StringFieldSchema.new(opts)
+      params = OpenStruct.new(opts)
+      StringFieldSchema.new(params)
     end
 
     def int_field(opts={})
-      IntFieldSchema.new(opts)
+      params = OpenStruct.new(opts)
+      IntFieldSchema.new(params)
     end
 
     def float_field(opts={})
-      FloatFieldSchema.new(opts)
+      params = OpenStruct.new(opts)
+      FloatFieldSchema.new(params)
     end
 
     private

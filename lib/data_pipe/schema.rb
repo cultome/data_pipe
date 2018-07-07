@@ -1,8 +1,8 @@
 require "data_pipe/record"
-require 'data_pipe/transformation/schema/date'
-require 'data_pipe/transformation/schema/string'
-require 'data_pipe/transformation/schema/int'
-require 'data_pipe/transformation/schema/float'
+require 'data_pipe/schema/date'
+require 'data_pipe/schema/string'
+require 'data_pipe/schema/int'
+require 'data_pipe/schema/float'
 
 module DataPipe
   class SchemaTransformation
