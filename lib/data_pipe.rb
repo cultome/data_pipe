@@ -38,6 +38,8 @@ module DataPipe
 
       response = []
       last_step.process!{|record| response << record }
+
+      response
     end
 
     def filter_properties(*fields)

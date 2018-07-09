@@ -1,10 +1,13 @@
+require "ostruct"
 
 module DataPipe
   class Record
     attr_reader :data
     attr_reader :params
 
-    def initialize(data, opts={})
+    EMPTY_PARAMS = OpenStruct.new({})
+
+    def initialize(data, opts=EMPTY_PARAMS)
       @data = data
       @params = opts
     end
