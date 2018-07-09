@@ -1,10 +1,16 @@
 
 module DataPipe
-  class FilterTransformation < Transformation
+  class RecordFilter < Transformation
+    attr_reader :fnc
+
+    def initialize(&blk)
+      @fnc = blk
+    end
+
     def process!
       input.process! do |record|
-        filtered = record.data.select{|k,v| params.include? k}
-        yield Record.new(filtered, record.params)
+        should_keep = fnc.call(record.data)
+        yield record if should_keep
       end
     end
   end

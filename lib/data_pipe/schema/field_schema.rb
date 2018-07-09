@@ -1,9 +1,12 @@
+require "ostruct"
 
 module DataPipe
   class FieldSchema
     attr_reader :params
 
-    def initialize(params)
+    EMPTY_PARAMS = OpenStruct.new({})
+
+    def initialize(params=EMPTY_PARAMS)
       @params = params
     end
 

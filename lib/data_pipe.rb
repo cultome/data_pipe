@@ -50,6 +50,10 @@ module DataPipe
       pipe << RecordProcess.new(&blk)
     end
 
+    def filter_records(&blk)
+      pipe << RecordFilter.new(&blk)
+    end
+
     def apply_schema(schema)
       pipe << Schema.new(schema)
     end

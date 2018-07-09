@@ -18,5 +18,6 @@ module DataPipe
   end
 end
 
-require "data_pipe/transformation/filter"
+require "data_pipe/transformation/map"
 require "data_pipe/transformation/process"
+require "data_pipe/transformation/filter"
