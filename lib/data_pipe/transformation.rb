@@ -13,9 +13,10 @@ module DataPipe
     end
 
     def process!
-      input.process!{|record| yield record }
+      raise "Implement this menthod!"
     end
   end
 end
 
 require "data_pipe/transformation/filter"
+require "data_pipe/transformation/process"

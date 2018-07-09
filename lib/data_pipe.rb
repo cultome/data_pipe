@@ -44,6 +44,10 @@ module DataPipe
       pipe << FilterTransformation.new(fields)
     end
 
+    def map(&blk)
+      pipe << RecordProcess.new(&blk)
+    end
+
     def apply_schema(schema)
       pipe << Schema.new(schema)
     end
