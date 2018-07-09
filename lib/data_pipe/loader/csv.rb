@@ -15,7 +15,7 @@ module DataPipe
       }
     end
 
-    def each
+    def process!
       CSV.foreach(resource_path, params) do |row|
         rec = if row.respond_to? :headers
                 props = OpenStruct.new(headers: true)
@@ -32,12 +32,6 @@ module DataPipe
 
     def set_input(step)
       @input = step
-    end
-
-    def process!
-      each do |row_hash|
-        yield row_hash
-      end
     end
   end
 end

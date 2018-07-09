@@ -17,10 +17,6 @@ module DataPipe
       false
     end
 
-    def each
-      input.each{|record| yield record }
-    end
-
     def process!
       raise "must implement it first!"
     end

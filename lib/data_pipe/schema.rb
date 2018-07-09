@@ -17,15 +17,13 @@ module DataPipe
       @input = input
     end
 
-    def each
-      input.each do |record|
+    def process!
+      input.process! do |record|
         new_data = apply(record.data)
         new_record = Record.new(new_data, record.params)
         yield new_record
       end
     end
-
-    alias :process! :each
 
     private
 

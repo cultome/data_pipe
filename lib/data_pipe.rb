@@ -2,6 +2,7 @@ require "data_pipe/version"
 require 'data_pipe/loader'
 require 'data_pipe/writer'
 require 'data_pipe/schema'
+require 'data_pipe/transformation'
 require 'ostruct'
 
 module DataPipe
@@ -35,7 +36,12 @@ module DataPipe
         step
       end
 
-      last_step.process!
+      response = []
+      last_step.process!{|record| response << record }
+    end
+
+    def filter_properties(*fields)
+      pipe << FilterTransformation.new(fields)
     end
 
     def apply_schema(schema)

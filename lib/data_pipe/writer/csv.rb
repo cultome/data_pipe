@@ -10,12 +10,19 @@ module DataPipe
 
     def process!
       wrote_headers = false
-      each do |record|
+      input.process! do |record|
         if write_header? && record.headers? && !wrote_headers
           wrote_headers = true
-          output.puts record.headers.join(SEPARATOR)
+          line = record.headers.join(SEPARATOR)
+
+          output.puts line
+          yield line if block_given?
         end
-        output.puts record.values.join(SEPARATOR)
+
+        line = record.values.join(SEPARATOR)
+
+        output.puts line
+        yield line if block_given?
       end
     end
   end
