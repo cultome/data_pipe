@@ -43,7 +43,7 @@ module DataPipe
     end
 
     def filter_properties(*fields)
-      pipe << FilterTransformation.new(fields)
+      pipe << RecordMap.new(fields)
     end
 
     def map(&blk)
