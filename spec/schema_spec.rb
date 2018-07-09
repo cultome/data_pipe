@@ -25,7 +25,7 @@ RSpec.describe DataPipe::Schema do
         })
       end
 
-      expect{ pipe.process! }.to raise_error "validation error"
+      expect{ pipe.process! }.to raise_error(DataPipe::ValidationError)
     end
 
     it "string_field success" do
@@ -52,7 +52,7 @@ RSpec.describe DataPipe::Schema do
         })
       end
 
-      expect{ pipe.process! }.to raise_error "validation error"
+      expect{ pipe.process! }.to raise_error(DataPipe::ValidationError)
     end
 
     it "int_field success" do
@@ -79,7 +79,7 @@ RSpec.describe DataPipe::Schema do
         })
       end
 
-      expect{ pipe.process! }.to raise_error "validation error"
+      expect{ pipe.process! }.to raise_error(DataPipe::ValidationError)
     end
 
     it "float_field success" do
@@ -106,7 +106,7 @@ RSpec.describe DataPipe::Schema do
         })
       end
 
-      expect{ pipe.process! }.to raise_error "validation error"
+      expect{ pipe.process! }.to raise_error(DataPipe::ValidationError)
     end
   end
 end

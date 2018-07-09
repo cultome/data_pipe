@@ -3,6 +3,8 @@ require 'data_pipe/loader'
 require 'data_pipe/writer'
 require 'data_pipe/schema'
 require 'data_pipe/transformation'
+require 'data_pipe/error_handler'
+require 'data_pipe/error'
 require 'ostruct'
 
 module DataPipe
@@ -31,15 +33,19 @@ module DataPipe
     end
 
     def process!
-      last_step = pipe.reduce(nil) do |acc,step|
-        step.set_input acc
-        step
-      end
+      last_step = prepare_steps
 
       response = []
-      last_step.process!{|record| response << record }
+
+      last_step.process! do |record|
+        response << record
+      end
 
       response
+    end
+
+    def handle_error(&blk)
+      pipe << ErrorHandler.new(&blk)
     end
 
     def filter_properties(*fields)
@@ -96,6 +102,13 @@ module DataPipe
       case type
       when :csv then CSVWriter.new(output, params)
       when :json then JSONWriter.new(output, params)
+      end
+    end
+
+    def prepare_steps
+      pipe.reduce(nil) do |acc,step|
+        step.set_input acc
+        step
       end
     end
   end

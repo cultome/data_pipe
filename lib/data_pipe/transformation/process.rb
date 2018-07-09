@@ -8,6 +8,8 @@ module DataPipe
     end
 
     def process!
+      return input.process! unless block_given?
+
       input.process! do |record|
         new_value = fnc.call(record.data)
         yield Record.new(new_value, record.params)

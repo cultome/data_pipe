@@ -23,5 +23,9 @@ module DataPipe
     def headers?
       params.headers.nil? ? false : params.headers
     end
+
+    def to_s
+      "#{data} [#{params}]"
+    end
   end
 end

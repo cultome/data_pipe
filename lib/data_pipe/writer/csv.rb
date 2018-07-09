@@ -9,6 +9,8 @@ module DataPipe
     end
 
     def process!
+      return input.process unless block_given?
+
       wrote_headers = false
       input.process! do |record|
         if write_header? && record.headers? && !wrote_headers
@@ -16,13 +18,13 @@ module DataPipe
           line = record.headers.join(SEPARATOR)
 
           output.puts line
-          yield line if block_given?
+          yield line
         end
 
         line = record.values.join(SEPARATOR)
 
         output.puts line
-        yield line if block_given?
+        yield line
       end
     end
   end

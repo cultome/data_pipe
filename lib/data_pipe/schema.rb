@@ -18,8 +18,10 @@ module DataPipe
     end
 
     def process!
+      return input.process! unless block_given?
+
       input.process! do |record|
-        new_data = apply(record.data)
+        new_data = apply_schema(record)
         new_record = Record.new(new_data, record.params)
         yield new_record
       end
@@ -27,16 +29,16 @@ module DataPipe
 
     private
 
-    def apply(data)
-      data.reduce({}) do |acc,(key,value)|
-        acc[key] = transform_field(key, value)
+    def apply_schema(record)
+      record.data.reduce({}) do |acc,(key,value)|
+        acc[key] = transform_field(key, value, record)
         acc
       end
     end
 
-    def transform_field(field, value)
+    def transform_field(field, value, record)
       if schema.has_key? field
-        schema[field].apply(value)
+        schema[field].apply(value, record)
       else
         value
       end

@@ -1,13 +1,22 @@
 require "data_pipe/schema/field_schema"
+require "data_pipe/error"
 
 module DataPipe
   class FloatFieldSchema < FieldSchema
-    def apply(value)
+    def apply(value, record=nil)
       fl_val = value.to_f
-      raise "validation error" unless fl_val >= params.min && fl_val <= params.max
+
+      unless params.min.nil?
+        raise ValidationError.new(record) unless fl_val >= params.min
+      end
+
+      unless params.max.nil?
+        raise ValidationError.new(record) unless fl_val <= params.max
+      end
+
       fl_val
     rescue
-      raise "validation error"
+      raise ValidationError.new(record)
     end
   end
 end
