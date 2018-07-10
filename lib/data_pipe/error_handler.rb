@@ -1,19 +1,15 @@
 require "data_pipe/iterable"
+require "data_pipe/inputable"
 
 module DataPipe
   class ErrorHandler
     include Iterable
+    include Inputable
 
-    attr_reader :input
     attr_reader :fnc
 
     def initialize(&blk)
       @fnc = blk
-    end
-
-    def set_input(step)
-      @input = step
-      self
     end
 
     def iter

@@ -1,15 +1,16 @@
-require "data_pipe/record"
-require "data_pipe/iterable"
 require "ostruct"
 require "csv"
+require "data_pipe/record"
+require "data_pipe/iterable"
+require "data_pipe/inputable"
 
 module DataPipe
   class CSVLoader
     include Iterable
+    include Inputable
 
     attr_reader :resource_path
     attr_reader :params
-    attr_reader :input
 
     EMPTY_PARAMS = OpenStruct.new({})
 
@@ -27,11 +28,6 @@ module DataPipe
           rsp << record
         end
       end
-    end
-
-    def set_input(step)
-      @input = step
-      self
     end
 
     private

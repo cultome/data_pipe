@@ -1,12 +1,13 @@
 require "ostruct"
 require "data_pipe/iterable"
+require "data_pipe/inputable"
 
 module DataPipe
   class Transformation
     include Iterable
+    include Inputable
 
     attr_reader :params
-    attr_reader :input
     attr_reader :fnc
 
     EMPTY_PARAMS = OpenStruct.new({})
@@ -14,11 +15,6 @@ module DataPipe
     def initialize(params=EMPTY_PARAMS, &blk)
       @params = params
       @fnc = blk
-    end
-
-    def set_input(prev_step)
-      @input = prev_step
-      self
     end
 
     def iter
