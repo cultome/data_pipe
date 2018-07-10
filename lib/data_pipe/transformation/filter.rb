@@ -7,10 +7,10 @@ module DataPipe
       @fnc = blk
     end
 
-    def process!
-      return input.process! unless block_given?
+    def each
+      return input.each unless block_given?
 
-      input.process! do |record|
+      input.each do |record|
         should_keep = fnc.call(record.data)
         yield record if should_keep
       end

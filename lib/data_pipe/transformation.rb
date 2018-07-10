@@ -12,7 +12,7 @@ module DataPipe
       @input = prev_step
     end
 
-    def process!
+    def each
       raise "Implement this menthod!"
     end
   end

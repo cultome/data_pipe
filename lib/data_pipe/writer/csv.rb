@@ -8,11 +8,11 @@ module DataPipe
       params.headers.nil? ? false : params.headers
     end
 
-    def process!
-      return input.process unless block_given?
+    def each
+      return input.each unless block_given?
 
       wrote_headers = false
-      input.process! do |record|
+      input.each do |record|
         if write_header? && record.headers? && !wrote_headers
           wrote_headers = true
           line = record.headers.join(SEPARATOR)

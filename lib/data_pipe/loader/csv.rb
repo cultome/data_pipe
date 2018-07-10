@@ -15,7 +15,7 @@ module DataPipe
       }
     end
 
-    def process!
+    def each
       return CSV.read(resource_path, params).map{|r| get_record(r) }.each unless block_given?
 
       CSV.foreach(resource_path, params) do |row|

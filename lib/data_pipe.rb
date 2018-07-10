@@ -37,7 +37,7 @@ module DataPipe
 
       response = []
 
-      last_step.process! do |record|
+      last_step.each do |record|
         response << record
       end
 

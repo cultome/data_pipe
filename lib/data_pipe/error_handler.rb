@@ -12,8 +12,8 @@ module DataPipe
       @input = step
     end
 
-    def process!
-      it = input.process!
+    def each
+      it = input.each
       loop do
         yield it.next
       rescue StopIteration

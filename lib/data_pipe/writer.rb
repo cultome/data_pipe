@@ -17,7 +17,7 @@ module DataPipe
       false
     end
 
-    def process!
+    def each
       raise "must implement it first!"
     end
   end

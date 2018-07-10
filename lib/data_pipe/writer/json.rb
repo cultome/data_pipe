@@ -2,10 +2,10 @@ require "json"
 
 module DataPipe
   class JSONWriter < Writer
-    def process!
+    def each
       return input.process unless block_given?
 
-      input.process! do |record|
+      input.each do |record|
         output.puts record.data.to_json
       end
     end

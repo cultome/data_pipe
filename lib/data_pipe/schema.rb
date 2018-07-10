@@ -17,10 +17,10 @@ module DataPipe
       @input = input
     end
 
-    def process!
-      return input.process! unless block_given?
+    def each
+      return input.each unless block_given?
 
-      input.process! do |record|
+      input.each do |record|
         new_data = apply_schema(record)
         new_record = Record.new(new_data, record.params)
         yield new_record
