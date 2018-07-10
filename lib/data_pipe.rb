@@ -108,7 +108,6 @@ module DataPipe
     def prepare_steps
       pipe.reduce(nil) do |acc,step|
         step.set_input acc
-        step
       end
     end
   end

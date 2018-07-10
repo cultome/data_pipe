@@ -10,6 +10,7 @@ module DataPipe
 
     def set_input(step)
       @input = step
+      self
     end
 
     def each

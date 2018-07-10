@@ -24,7 +24,7 @@ module DataPipe
         line = record.values.join(SEPARATOR)
 
         output.puts line
-        yield line
+        yield record
       end
     end
   end

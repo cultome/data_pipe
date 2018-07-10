@@ -8,7 +8,9 @@ module DataPipe
     attr_reader :params
     attr_reader :input
 
-    def initialize(resource_path, params)
+    EMPTY_PARAMS = OpenStruct.new({})
+
+    def initialize(resource_path, params=EMPTY_PARAMS)
       @resource_path = resource_path
       @params = {
         headers: params.headers.nil? ? false : params.headers
@@ -26,6 +28,7 @@ module DataPipe
 
     def set_input(step)
       @input = step
+      self
     end
 
     private

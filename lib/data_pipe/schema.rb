@@ -15,6 +15,7 @@ module DataPipe
 
     def set_input(input)
       @input = input
+      self
     end
 
     def each

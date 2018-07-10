@@ -1,12 +1,6 @@
 
 module DataPipe
   class RecordProcess < Transformation
-    attr_reader :fnc
-
-    def initialize(&blk)
-      @fnc = blk
-    end
-
     def each
       return input.each unless block_given?
 

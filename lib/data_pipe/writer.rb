@@ -1,16 +1,21 @@
+require "ostruct"
+
 module DataPipe
   class Writer
     attr_reader :params
     attr_reader :output
     attr_reader :input
 
-    def initialize(output, params)
+    EMPTY_PARAMS = OpenStruct.new({})
+
+    def initialize(output, params=EMPTY_PARAMS)
       @params = params
       @output = output
     end
 
     def set_input(step)
       @input = step
+      self
     end
 
     def write_header?
