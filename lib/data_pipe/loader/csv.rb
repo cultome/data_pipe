@@ -1,9 +1,12 @@
 require "data_pipe/record"
+require "data_pipe/iterable"
 require "ostruct"
 require "csv"
 
 module DataPipe
   class CSVLoader
+    include Iterable
+
     attr_reader :resource_path
     attr_reader :params
     attr_reader :input
@@ -17,12 +20,12 @@ module DataPipe
       }
     end
 
-    def each
-      return CSV.read(resource_path, params).map{|r| get_record(r) }.each unless block_given?
-
-      CSV.foreach(resource_path, params) do |row|
-        record = get_record(row)
-        yield record
+    def iter
+      Enumerator.new do |rsp|
+        CSV.foreach(resource_path, params) do |row|
+          record = get_record(row)
+          rsp << record
+        end
       end
     end
 
