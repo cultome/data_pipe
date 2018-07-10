@@ -6,6 +6,7 @@ require 'data_pipe/schema'
 require 'data_pipe/transformation'
 require 'data_pipe/error_handler'
 require 'data_pipe/error'
+require 'data_pipe/null_step'
 require 'ostruct'
 
 module DataPipe
@@ -36,8 +37,8 @@ module DataPipe
     def process!
       last_step = prepare_steps
 
-      last_step.reduce([]) do |acc,record|
-        acc << record
+      last_step.each do |record|
+        record
       end
     end
 
@@ -103,8 +104,8 @@ module DataPipe
     end
 
     def prepare_steps
-      pipe.reduce(nil) do |acc,step|
-        step.set_input acc
+      pipe.reduce(NullStep.new) do |prev,nxt|
+        nxt.set_input StepWrapper.new(prev, nxt)
       end
     end
   end

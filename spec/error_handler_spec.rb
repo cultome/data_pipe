@@ -1,7 +1,7 @@
 
 RSpec.describe DataPipe do
   context "handles error in the pipe" do
-    it "caught error during process" do
+    xit "caught error during process" do
       output = StringIO.new
 
       DataPipe.create do
