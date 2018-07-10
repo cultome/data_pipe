@@ -34,13 +34,10 @@ module DataPipe
 
     def process!
       last_step = prepare_steps
-
       response = []
-
       last_step.each do |record|
         response << record
       end
-
       response
     end
 

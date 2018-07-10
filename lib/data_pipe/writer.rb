@@ -1,7 +1,10 @@
 require "ostruct"
+require "data_pipe/iterable"
 
 module DataPipe
   class Writer
+    include Iterable
+
     attr_reader :params
     attr_reader :output
     attr_reader :input
@@ -22,7 +25,7 @@ module DataPipe
       false
     end
 
-    def each
+    def iter
       raise "must implement it first!"
     end
   end

@@ -1,6 +1,9 @@
+require "data_pipe/iterable"
 
 module DataPipe
   class ErrorHandler
+    include Iterable
+
     attr_reader :input
     attr_reader :fnc
 
@@ -13,14 +16,16 @@ module DataPipe
       self
     end
 
-    def each
-      it = input.each
-      loop do
-        yield it.next
-      rescue StopIteration
-        break
-      rescue Exception
-        next
+    def iter
+      Enumerator.new do |rsp|
+        it = input.each
+        loop do
+          rsp << it.next
+        rescue StopIteration
+          break
+        rescue Exception
+          next
+        end
       end
     end
   end

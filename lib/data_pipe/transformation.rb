@@ -1,7 +1,10 @@
 require "ostruct"
+require "data_pipe/iterable"
 
 module DataPipe
   class Transformation
+    include Iterable
+
     attr_reader :params
     attr_reader :input
     attr_reader :fnc
@@ -18,8 +21,8 @@ module DataPipe
       self
     end
 
-    def each
-      raise "Implement this menthod!"
+    def iter
+      raise "Implement this method!"
     end
   end
 end
