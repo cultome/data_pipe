@@ -35,11 +35,10 @@ module DataPipe
 
     def process!
       last_step = prepare_steps
-      response = []
-      last_step.each do |record|
-        response << record
+
+      last_step.reduce([]) do |acc,record|
+        acc << record
       end
-      response
     end
 
     def handle_error(&blk)

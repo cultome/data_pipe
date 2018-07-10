@@ -14,6 +14,7 @@ module DataPipe
 
     def iter
       Enumerator.new do |rsp|
+        # require "pry";binding.pry
         value = input.next
         puts "[#{step.class}] #{value}"
         rsp << value
