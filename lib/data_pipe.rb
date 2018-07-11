@@ -1,5 +1,4 @@
 require "data_pipe/version"
-require "data_pipe/step_wrapper"
 require 'data_pipe/loader'
 require 'data_pipe/writer'
 require 'data_pipe/schema'

@@ -15,14 +15,10 @@ module DataPipe
       @schema = schema
     end
 
-    def iter
-      Enumerator.new do |rsp|
-        input.each do |record|
-          new_data = apply_schema(record)
-          new_record = Record.new(new_data, record.params)
-          rsp << new_record
-        end
-      end
+    def process(record)
+      new_data = apply_schema(record)
+      new_record = Record.new(new_data, record.params)
+      new_record
     end
 
     private

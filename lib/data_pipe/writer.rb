@@ -18,10 +18,6 @@ module DataPipe
     def write_header?
       false
     end
-
-    def iter
-      raise "must implement it first!"
-    end
   end
 end
 

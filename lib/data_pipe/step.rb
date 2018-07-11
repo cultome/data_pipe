@@ -22,7 +22,8 @@ module DataPipe
     def iter
       Enumerator.new do |rsp|
         input.each do |record|
-          rsp << process(record)
+          value = process(record)
+          rsp << value unless value.nil?
         end
       end
     end

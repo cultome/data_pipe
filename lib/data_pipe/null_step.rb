@@ -4,12 +4,8 @@ module DataPipe
   class NullStep
     include Step
 
-    def iter
-      Enumerator.new do |rsp|
-        loop do
-          rsp << nil
-        end
-      end
+    def process(record)
+      Record.new({})
     end
   end
 end
