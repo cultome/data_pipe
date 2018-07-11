@@ -7,16 +7,18 @@ module DataPipe
       int_val = Integer(value)
 
       unless params.min.nil?
-        raise ValidationError.new(record) unless int_val >= params.min
+        error_msg =  "[#{int_val}] has not the minimum expected value [#{params.min}]"
+        raise ValidationError.new(record, error_msg) unless int_val >= params.min
       end
 
       unless params.max.nil?
-        raise ValidationError.new(record) unless int_val <= params.max
+        error_msg =  "[#{int_val}] exceeded the maximum expected value [#{params.max}]"
+        raise ValidationError.new(record, error_msg) unless int_val <= params.max
       end
 
       int_val
-    rescue
-      raise ValidationError.new(record)
+    rescue Exception => err
+      raise ValidationError.new(record, err)
     end
   end
 end

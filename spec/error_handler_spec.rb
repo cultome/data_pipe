@@ -1,13 +1,14 @@
 
 RSpec.describe DataPipe do
   context "handles error in the pipe" do
-    xit "caught error during process" do
+    it "caught error during process" do
       output = StringIO.new
+      handler_called = false
 
       DataPipe.create do
         load_from "spec/sample/3.csv", headers: true
-        handle_error do |err, record|
-          puts "[*] Error handler for #{err} - #{record}"
+        handle_error do |err|
+          handler_called = true
         end
         apply_schema({
           "age" => int_field,
@@ -15,6 +16,7 @@ RSpec.describe DataPipe do
         write_to :csv, output
       end.process!
 
+      expect(handler_called).to be true
       expect(output.string).to eq <<-FILE
 1982-10-02,34,susana@cultome.io
 Carlos,34,

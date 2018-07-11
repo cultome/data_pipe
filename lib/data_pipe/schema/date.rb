@@ -6,8 +6,8 @@ module DataPipe
   class DateFieldSchema < FieldSchema
     def apply(value, record=nil)
       Date.strptime(value, params.format)
-    rescue
-      raise ValidationError.new(record)
+    rescue Exception => err
+      raise ValidationError.new(record, err)
     end
   end
 end

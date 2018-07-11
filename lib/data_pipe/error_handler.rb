@@ -17,8 +17,8 @@ module DataPipe
           rsp << it.next
         rescue StopIteration
           break
-        rescue Exception
-          next
+        rescue Exception => err
+          fnc.call(err)
         end
       end
     end

@@ -5,7 +5,8 @@ module DataPipe
     def apply(value, record)
 
       unless params.format.nil?
-        raise ValidationError.new(record) unless value.to_s.match? params.format
+        error_msg = "[#{value}] doesnt match the expected format [#{params.format}]"
+        raise ValidationError.new(record, error_msg) unless value.to_s.match? params.format
       end
 
       value.to_s
