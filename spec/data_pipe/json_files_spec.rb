@@ -6,7 +6,7 @@ RSpec.describe "Handle of JSON files" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from "spec/sample/1.csv", headers: true
+        load_from "spec/sample/1.json", headers: true
         apply_schema({
           "date" => date_field(format: "%Y-%m-%d"),
           "string" => string_field(format: /^[A-Z]/),

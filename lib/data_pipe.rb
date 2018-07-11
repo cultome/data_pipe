@@ -93,8 +93,8 @@ module DataPipe
 
     def get_loader(res_type, resource_path, params)
       case res_type
-      when :csv
-        Loader::CSVLoader.new(resource_path, params)
+      when :csv then Loader::CSVLoader.new(resource_path, params)
+      when :json then Loader::JSONLoader.new(resource_path, params)
       end
     end
 
