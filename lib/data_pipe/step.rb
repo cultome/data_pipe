@@ -23,6 +23,7 @@ module DataPipe
       Enumerator.new do |rsp|
         input.each do |record|
           value = process(record)
+          puts "#{input.class} -> #{value} -> #{self.class}"
           rsp << value unless value.nil?
         end
       end
