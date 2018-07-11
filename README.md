@@ -1,8 +1,6 @@
 # DataPipe
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/data_pipe`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Framework to create data processing pipelines.
 
 ## Installation
 
@@ -19,6 +17,17 @@ And then execute:
 Or install it yourself as:
 
     $ gem install data_pipe
+
+## TODO
+
+ * Filter by date criterias (in general operate with date data)
+ * Add sorting step
+ * Associate labels to headers/properties
+ * Validate JSON structure
+ * Process by criteria (if passes a test process it)
+ * Add loaders for databases
+ * Improve processing information (inside pipeline)
+ * Change root property (for JSON loader)
 
 ## Usage
 
