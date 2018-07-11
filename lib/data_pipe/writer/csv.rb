@@ -1,5 +1,5 @@
 
-module DataPipe
+module DataPipe::Writer
   class CSVWriter < Writer
 
     SEPARATOR = ","

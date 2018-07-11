@@ -1,5 +1,5 @@
 
-RSpec.describe DataPipe::Schema do
+RSpec.describe "Schema definition and validations" do
   context "validates with schema" do
     it "date_field success" do
       output = StringIO.new
@@ -29,7 +29,7 @@ RSpec.describe DataPipe::Schema do
         })
       end
 
-      expect{ pipe.process! }.to raise_error(DataPipe::ValidationError)
+      expect{ pipe.process! }.to raise_error(ValidationError)
     end
 
     it "string_field success" do
@@ -60,7 +60,7 @@ RSpec.describe DataPipe::Schema do
         })
       end
 
-      expect{ pipe.process! }.to raise_error(DataPipe::ValidationError)
+      expect{ pipe.process! }.to raise_error(ValidationError)
     end
 
     it "int_field success" do
@@ -91,7 +91,7 @@ RSpec.describe DataPipe::Schema do
         })
       end
 
-      expect{ pipe.process! }.to raise_error(DataPipe::ValidationError)
+      expect{ pipe.process! }.to raise_error(ValidationError)
     end
 
     it "float_field success" do
@@ -122,7 +122,7 @@ RSpec.describe DataPipe::Schema do
         })
       end
 
-      expect{ pipe.process! }.to raise_error(DataPipe::ValidationError)
+      expect{ pipe.process! }.to raise_error(ValidationError)
     end
   end
 end

@@ -5,9 +5,9 @@ require 'data_pipe/schema/int'
 require 'data_pipe/schema/float'
 require "data_pipe/step"
 
-module DataPipe
+module DataPipe::Schema
   class Schema
-    include Step
+    include DataPipe::Step
 
     attr_reader :schema
 

@@ -1,3 +1,4 @@
+require 'ostruct'
 require "data_pipe/version"
 require 'data_pipe/loader'
 require 'data_pipe/writer'
@@ -6,7 +7,7 @@ require 'data_pipe/transformation'
 require 'data_pipe/error_handler'
 require 'data_pipe/error'
 require 'data_pipe/null_step'
-require 'ostruct'
+require 'data_pipe/loggable'
 
 module DataPipe
   def self.create(&blk)
@@ -48,39 +49,39 @@ module DataPipe
     end
 
     def filter_properties(*fields)
-      pipe << RecordMap.new(fields)
+      pipe << Transformation::RecordMap.new(fields)
     end
 
     def map(&blk)
-      pipe << RecordProcess.new(&blk)
+      pipe << Transformation::RecordProcess.new(&blk)
     end
 
     def filter_records(&blk)
-      pipe << RecordFilter.new(&blk)
+      pipe << Transformation::RecordFilter.new(&blk)
     end
 
     def apply_schema(schema)
-      pipe << Schema.new(schema)
+      pipe << Schema::Schema.new(schema)
     end
 
     def date_field(opts={})
       params = OpenStruct.new(opts)
-      DateFieldSchema.new(params)
+      Schema::DateFieldSchema.new(params)
     end
 
     def string_field(opts={})
       params = OpenStruct.new(opts)
-      StringFieldSchema.new(params)
+      Schema::StringFieldSchema.new(params)
     end
 
     def int_field(opts={})
       params = OpenStruct.new(opts)
-      IntFieldSchema.new(params)
+      Schema::IntFieldSchema.new(params)
     end
 
     def float_field(opts={})
       params = OpenStruct.new(opts)
-      FloatFieldSchema.new(params)
+      Schema::FloatFieldSchema.new(params)
     end
 
     private
@@ -93,14 +94,14 @@ module DataPipe
     def get_loader(res_type, resource_path, params)
       case res_type
       when :csv
-        CSVLoader.new(resource_path, params)
+        Loader::CSVLoader.new(resource_path, params)
       end
     end
 
     def get_writer(type, output, params)
       case type
-      when :csv then CSVWriter.new(output, params)
-      when :json then JSONWriter.new(output, params)
+      when :csv then Writer::CSVWriter.new(output, params)
+      when :json then Writer::JSONWriter.new(output, params)
       end
     end
 

@@ -1,5 +1,5 @@
 
-RSpec.describe DataPipe do
+RSpec.describe "Handle of CSV files" do
   context "loads a CSV file without header" do
     it "ignore headers if not parsed" do
       output = StringIO.new

@@ -1,5 +1,5 @@
 
-RSpec.describe DataPipe do
+RSpec.describe "Transformations" do
   context "apply transformations" do
     it "filter fields" do
       output = StringIO.new

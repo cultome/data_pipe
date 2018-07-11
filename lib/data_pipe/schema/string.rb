@@ -1,6 +1,6 @@
 require "data_pipe/schema/field_schema"
 
-module DataPipe
+module DataPipe::Schema
   class StringFieldSchema < FieldSchema
     def apply(value, record)
 

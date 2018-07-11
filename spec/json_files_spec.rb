@@ -1,5 +1,5 @@
 
-RSpec.describe DataPipe do
+RSpec.describe "Handle of JSON files" do
   context "loads a JSON file" do
     it "writes in json format" do
       output = StringIO.new

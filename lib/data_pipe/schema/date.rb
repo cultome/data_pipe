@@ -2,7 +2,7 @@ require "data_pipe/schema/field_schema"
 require "data_pipe/error"
 require "date"
 
-module DataPipe
+module DataPipe::Schema
   class DateFieldSchema < FieldSchema
     def apply(value, record=nil)
       Date.strptime(value, params.format)

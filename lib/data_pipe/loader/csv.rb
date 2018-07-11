@@ -3,9 +3,9 @@ require "csv"
 require "data_pipe/record"
 require "data_pipe/step"
 
-module DataPipe
+module DataPipe::Loader
   class CSVLoader
-    include Step
+    include DataPipe::Step
 
     attr_reader :resource_path
     attr_reader :params

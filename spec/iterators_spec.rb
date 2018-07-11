@@ -1,6 +1,6 @@
 require "ostruct"
 
-RSpec.describe DataPipe::Schema do
+RSpec.describe "Iterator behavior" do
   let(:output){ StringIO.new }
 
   context "iterates using a block" do

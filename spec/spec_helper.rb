@@ -2,10 +2,8 @@ require "bundler/setup"
 require "data_pipe"
 
 RSpec.configure do |config|
-  # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
 
-  # Disable RSpec exposing methods globally on `Module` and `main`
   config.disable_monkey_patching!
 
   config.expect_with :rspec do |c|
@@ -14,3 +12,8 @@ RSpec.configure do |config|
 end
 
 include DataPipe
+include DataPipe::Schema
+include DataPipe::Loader
+include DataPipe::Writer
+include DataPipe::Transformation
+include DataPipe::Error

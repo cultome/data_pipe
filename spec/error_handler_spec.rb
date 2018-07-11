@@ -1,5 +1,5 @@
 
-RSpec.describe DataPipe do
+RSpec.describe "Step to handle pipe errors" do
   context "handles error in the pipe" do
     it "caught error during process" do
       output = StringIO.new

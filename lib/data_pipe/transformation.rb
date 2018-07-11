@@ -1,9 +1,9 @@
 require "ostruct"
 require "data_pipe/step"
 
-module DataPipe
+module DataPipe::Transformation
   class Transformation
-    include Step
+    include DataPipe::Step
 
     attr_reader :params
     attr_reader :fnc

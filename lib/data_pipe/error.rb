@@ -1,6 +1,6 @@
 require "ostruct"
 
-module DataPipe
+module DataPipe::Error
   class DataPipeError < StandardError
     attr_reader :record, :original_error
 
