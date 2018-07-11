@@ -16,6 +16,8 @@ module DataPipe
   end
 
   class DataPipe
+    include Loggable
+
     attr_reader :pipe
 
     def initialize

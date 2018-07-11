@@ -5,6 +5,8 @@ RSpec.describe DataPipe do
       output = StringIO.new
 
       DataPipe.create do
+        log_to StringIO.new
+
         load_from "spec/sample/1.csv", headers: true
         filter_properties "string", "int"
         write_to :csv, output, headers: true
@@ -20,6 +22,8 @@ Carlos,34
       output = StringIO.new
 
       DataPipe.create do
+        log_to StringIO.new
+
         load_from "spec/sample/2.csv", headers: true
         apply_schema({
           "age" => int_field,
@@ -41,6 +45,8 @@ Carlos,34,csoria@cultome.io
       output = StringIO.new
 
       DataPipe.create do
+        log_to StringIO.new
+
         load_from "spec/sample/1.csv", headers: true
         map do |record|
           record.reduce({}){|acc,(k,_)| acc[k] = "test"; acc }

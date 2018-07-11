@@ -3,8 +3,9 @@ RSpec.describe DataPipe do
   context "loads a JSON file" do
     it "writes in json format" do
       output = StringIO.new
-
       DataPipe.create do
+        log_to StringIO.new
+
         load_from "spec/sample/1.csv", headers: true
         apply_schema({
           "date" => date_field(format: "%Y-%m-%d"),

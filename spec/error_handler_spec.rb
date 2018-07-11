@@ -6,6 +6,8 @@ RSpec.describe DataPipe do
       handler_called = false
 
       DataPipe.create do
+        log_to StringIO.new
+
         load_from "spec/sample/3.csv", headers: true
         handle_error do |err|
           handler_called = true

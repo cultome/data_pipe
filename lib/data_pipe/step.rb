@@ -1,7 +1,9 @@
+require "data_pipe/logger"
 
 module DataPipe
   module Step
     include Enumerable
+    include Loggable
 
     attr_reader :input
 
@@ -23,7 +25,7 @@ module DataPipe
       Enumerator.new do |rsp|
         input.each do |record|
           value = process(record)
-          puts "#{input.class} -> #{value} -> #{self.class}"
+          log "#{input.class} -> #{value} -> #{self.class}"
           rsp << value unless value.nil?
         end
       end

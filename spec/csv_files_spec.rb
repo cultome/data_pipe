@@ -5,6 +5,8 @@ RSpec.describe DataPipe do
       output = StringIO.new
 
       DataPipe.create do
+        log_to StringIO.new
+
         load_from "spec/sample/1.csv"
         write_to :csv, output, headers: true
       end.process!
@@ -19,6 +21,8 @@ date,string,int,float
       output = StringIO.new
 
       DataPipe.create do
+        log_to StringIO.new
+
         load_from "spec/sample/1.csv"
         write_to :csv, output
       end.process!
@@ -35,6 +39,8 @@ date,string,int,float
       output = StringIO.new
 
       DataPipe.create do
+        log_to StringIO.new
+
         load_from "spec/sample/1.csv", headers: true
         write_to :csv, output
       end.process!
@@ -48,6 +54,8 @@ date,string,int,float
       output = StringIO.new
 
       DataPipe.create do
+        log_to StringIO.new
+
         load_from "spec/sample/1.csv", headers: true
         write_to :csv, output, headers: true
       end.process!

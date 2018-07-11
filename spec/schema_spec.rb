@@ -5,6 +5,8 @@ RSpec.describe DataPipe::Schema do
       output = StringIO.new
 
       DataPipe.create do
+        log_to StringIO.new
+
         load_from "spec/sample/1.csv", headers: true
         apply_schema({
           "date" => date_field(format: "%Y-%m-%d"),
@@ -19,6 +21,8 @@ RSpec.describe DataPipe::Schema do
 
     it "date_field failed" do
       pipe = DataPipe.create do
+        log_to StringIO.new
+
         load_from "spec/sample/1.csv", headers: true
         apply_schema({
           "date" => date_field(format: "%m-%d-%Y"),
@@ -32,6 +36,8 @@ RSpec.describe DataPipe::Schema do
       output = StringIO.new
 
       DataPipe.create do
+        log_to StringIO.new
+
         load_from "spec/sample/1.csv", headers: true
         apply_schema({
           "string" => string_field(format: /^[A-Z]/),
@@ -46,6 +52,8 @@ RSpec.describe DataPipe::Schema do
 
     it "string_field failed" do
       pipe = DataPipe.create do
+        log_to StringIO.new
+
         load_from "spec/sample/1.csv", headers: true
         apply_schema({
           "string" => string_field(format: /^[0-9]/),
@@ -59,6 +67,8 @@ RSpec.describe DataPipe::Schema do
       output = StringIO.new
 
       DataPipe.create do
+        log_to StringIO.new
+
         load_from "spec/sample/1.csv", headers: true
         apply_schema({
           "int" => int_field(min: 1, max: 100),
@@ -73,6 +83,8 @@ RSpec.describe DataPipe::Schema do
 
     it "int_field failed" do
       pipe = DataPipe.create do
+        log_to StringIO.new
+
         load_from "spec/sample/1.csv", headers: true
         apply_schema({
           "int" => int_field(min: 1, max: 10),
@@ -86,6 +98,8 @@ RSpec.describe DataPipe::Schema do
       output = StringIO.new
 
       DataPipe.create do
+        log_to StringIO.new
+
         load_from "spec/sample/1.csv", headers: true
         apply_schema({
           "float" => float_field(min: 1, max: 100),
@@ -100,6 +114,8 @@ RSpec.describe DataPipe::Schema do
 
     it "float_field failed" do
       pipe = DataPipe.create do
+        log_to StringIO.new
+
         load_from "spec/sample/1.csv", headers: true
         apply_schema({
           "float" => float_field(min: 2, max: 10),
