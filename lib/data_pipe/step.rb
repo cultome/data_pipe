@@ -14,5 +14,17 @@ module DataPipe
       return iter unless block_given?
       iter.each{|record| yield record }
     end
+
+    def process(record)
+      raise "must implement first"
+    end
+
+    def iter
+      Enumerator.new do |rsp|
+        input.each do |record|
+          rsp << process(record)
+        end
+      end
+    end
   end
 end

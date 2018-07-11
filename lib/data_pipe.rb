@@ -104,8 +104,9 @@ module DataPipe
     end
 
     def prepare_steps
-      pipe.reduce(NullStep.new) do |prev,nxt|
-        nxt.set_input StepWrapper.new(prev, nxt)
+      pipe.reduce(NullStep.new) do |upstream, current|
+        current.set_input upstream
+        # current.set_input StepWrapper.new(upstream, current)
       end
     end
   end

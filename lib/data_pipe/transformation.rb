@@ -14,10 +14,6 @@ module DataPipe
       @params = params
       @fnc = blk
     end
-
-    def iter
-      raise "Implement this method!"
-    end
   end
 end
 
