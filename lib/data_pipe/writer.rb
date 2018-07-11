@@ -1,11 +1,9 @@
 require "ostruct"
-require "data_pipe/iterable"
-require "data_pipe/inputable"
+require "data_pipe/step"
 
 module DataPipe
   class Writer
-    include Iterable
-    include Inputable
+    include Step
 
     attr_reader :params
     attr_reader :output

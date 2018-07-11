@@ -1,10 +1,8 @@
-require "data_pipe/iterable"
-require "data_pipe/inputable"
+require "data_pipe/step"
 
 module DataPipe
   class ErrorHandler
-    include Iterable
-    include Inputable
+    include Step
 
     attr_reader :fnc
 

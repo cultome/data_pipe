@@ -3,13 +3,11 @@ require 'data_pipe/schema/date'
 require 'data_pipe/schema/string'
 require 'data_pipe/schema/int'
 require 'data_pipe/schema/float'
-require "data_pipe/iterable"
-require "data_pipe/inputable"
+require "data_pipe/step"
 
 module DataPipe
   class Schema
-    include Iterable
-    include Inputable
+    include Step
 
     attr_reader :schema
 

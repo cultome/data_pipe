@@ -1,8 +1,8 @@
+require "data_pipe/step"
 
 module DataPipe
   class NullStep
-    include Iterable
-    include Inputable
+    include Step
 
     def iter
       Enumerator.new do |rsp|

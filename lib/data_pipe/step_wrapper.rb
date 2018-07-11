@@ -1,10 +1,8 @@
-require "data_pipe/iterable"
-require "data_pipe/inputable"
+require "data_pipe/step"
 
 module DataPipe
   class StepWrapper
-    include Iterable
-    include Inputable
+    include Step
 
     attr_reader :next_step
     attr_reader :prev_step

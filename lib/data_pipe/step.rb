@@ -1,7 +1,14 @@
 
 module DataPipe
-  module Iterable
+  module Step
     include Enumerable
+
+    attr_reader :input
+
+    def set_input(input)
+      @input = input
+      self
+    end
 
     def each
       return iter unless block_given?

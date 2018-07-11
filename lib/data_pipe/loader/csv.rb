@@ -1,13 +1,11 @@
 require "ostruct"
 require "csv"
 require "data_pipe/record"
-require "data_pipe/iterable"
-require "data_pipe/inputable"
+require "data_pipe/step"
 
 module DataPipe
   class CSVLoader
-    include Iterable
-    include Inputable
+    include Step
 
     attr_reader :resource_path
     attr_reader :params
