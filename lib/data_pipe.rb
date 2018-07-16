@@ -1,28 +1,35 @@
 require 'ostruct'
+require "active_support/inflector"
 require "data_pipe/version"
-require 'data_pipe/steppable'
-require 'data_pipe/step/map'
-require 'data_pipe/step/process'
-require 'data_pipe/step/filter'
-require 'data_pipe/step/csv_writer'
-require 'data_pipe/step/json_writer'
-require 'data_pipe/step/csv_loader'
-require 'data_pipe/step/json_loader'
-require 'data_pipe/step/schema'
-require 'data_pipe/step/error_handler'
-
 require 'data_pipe/error'
 require 'data_pipe/null_step'
 require 'data_pipe/loggable'
 
 module DataPipe
   def self.create(&blk)
-    instance = DataPipe.new
+    instance = Pipe.new
     instance.instance_exec(&blk)
     instance
   end
 
-  class DataPipe
+  def self.included(clazz)
+    Dir.children("lib/data_pipe/step")
+      .select{|filename| filename.end_with?(".rb") }
+      .map{|filename| filename.chomp ".rb" }
+      .each{|name| require "data_pipe/step/#{name}" }
+      .map{|name| "DataPipe::Step::#{name.camelize}".constantize }
+=begin
+      .each do |step|
+        cmd_name = step.pipe_command
+        puts "=================> #{cmd_name} <==================="
+        Pipe.define_method cmd_name do
+          "ESO!!!"
+        end
+      end
+=end
+  end
+
+  class Pipe
     include Loggable
 
     attr_reader :pipe
@@ -51,19 +58,19 @@ module DataPipe
     end
 
     def handle_error(&blk)
-      pipe << ErrorHandler.new(&blk)
+      pipe << Step::ErrorHandler.new(&blk)
     end
 
     def filter_properties(*fields)
-      pipe << Step::RecordMap.new(fields)
+      pipe << Step::Map.new(fields)
     end
 
     def map(&blk)
-      pipe << Step::RecordProcess.new(&blk)
+      pipe << Step::Process.new(&blk)
     end
 
     def filter_records(&blk)
-      pipe << Step::RecordFilter.new(&blk)
+      pipe << Step::Filter.new(&blk)
     end
 
     def apply_schema(schema)
@@ -99,15 +106,15 @@ module DataPipe
 
     def get_loader(res_type, resource_path, params)
       case res_type
-      when :csv then Step::CSVLoader.new(resource_path, params)
-      when :json then Step::JSONLoader.new(resource_path, params)
+      when :csv then Step::CsvLoader.new(resource_path, params)
+      when :json then Step::JsonLoader.new(resource_path, params)
       end
     end
 
     def get_writer(type, output, params)
       case type
-      when :csv then Step::CSVWriter.new(output, params)
-      when :json then Step::JSONWriter.new(output, params)
+      when :csv then Step::CsvWriter.new(output, params)
+      when :json then Step::JsonWriter.new(output, params)
       end
     end
 

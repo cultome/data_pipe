@@ -5,84 +5,84 @@ RSpec.describe "Iterator behavior" do
 
   context "iterates using a block" do
     it "writer/json" do
-      step = prepare_step(JSONWriter.new(output))
+      step = prepare_step(DataPipe::Step::JsonWriter.new(output))
       check_iterator step
     end
 
     it "writer/csv" do
-      step = prepare_step(CSVWriter.new(output))
+      step = prepare_step(DataPipe::Step::CsvWriter.new(output))
       check_iterator step
     end
 
     it "schema" do
-      step = prepare_step(Schema.new({
-        "a" => StringFieldSchema.new,
+      step = prepare_step(DataPipe::Step::Schema::Schema.new({
+        "a" => DataPipe::Step::Schema::StringFieldSchema.new,
       }))
       check_iterator step
     end
 
     it "loader/csv" do
-      step = CSVLoader.new("spec/sample/4.csv", OpenStruct.new(headers: true))
+      step = DataPipe::Step::CsvLoader.new("spec/sample/4.csv", OpenStruct.new(headers: true))
       check_iterator step
     end
 
     it "transformation/filter" do
-      step = prepare_step(RecordFilter.new{|r| true })
+      step = prepare_step(DataPipe::Step::Filter.new{|r| true })
       check_iterator step
     end
 
     it "transformation/process" do
-      step = prepare_step(RecordProcess.new{|r| r })
+      step = prepare_step(DataPipe::Step::Process.new{|r| r })
       check_iterator step
     end
 
     it "transformation/map" do
-      step = prepare_step(RecordMap.new(["a", "b"]))
+      step = prepare_step(DataPipe::Step::Map.new(["a", "b"]))
       check_iterator step
     end
   end
 
   context "returns an iterator" do
     it "writer/json" do
-      step = prepare_step(JSONWriter.new(output))
+      step = prepare_step(DataPipe::Step::JsonWriter.new(output))
       check_iterator step.each
     end
 
     it "writer/csv" do
-      step = prepare_step(CSVWriter.new(output))
+      step = prepare_step(DataPipe::Step::CsvWriter.new(output))
       check_iterator step.each
     end
 
     it "schema" do
-      step = prepare_step(Schema.new({
-        "a" => StringFieldSchema.new,
+      step = prepare_step(DataPipe::Step::Schema::Schema.new({
+        "a" => DataPipe::Step::Schema::StringFieldSchema.new,
       }))
       check_iterator step.each
     end
 
     it "loader/csv" do
-      step = CSVLoader.new("spec/sample/4.csv", OpenStruct.new(headers: true))
+      step = DataPipe::Step::CsvLoader.new("spec/sample/4.csv", OpenStruct.new(headers: true))
       check_iterator step.each
     end
 
     it "transformation/filter" do
-      step = prepare_step(RecordFilter.new{|r| true })
+      step = prepare_step(DataPipe::Step::Filter.new{|r| true })
       check_iterator step.each
     end
 
     it "transformation/process" do
-      step = prepare_step(RecordProcess.new{|r| r })
+      step = prepare_step(DataPipe::Step::Process.new{|r| r })
       check_iterator step.each
     end
 
     it "transformation/map" do
-      step = prepare_step(RecordMap.new(["a", "b"]))
+      step = prepare_step(DataPipe::Step::Map.new(["a", "b"]))
       check_iterator step.each
     end
   end
 
   def prepare_step(step)
-    step.set_input [Record.new({"a" => "test a", "b" => "test b"})]
+    step.set_input [DataPipe::Record.new({"a" => "test a", "b" => "test b"})]
   end
 
   def check_iterator(it)

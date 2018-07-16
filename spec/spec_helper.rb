@@ -12,6 +12,4 @@ RSpec.configure do |config|
 end
 
 include DataPipe
-include DataPipe::Step
-include DataPipe::Step::Schema
 include DataPipe::Error

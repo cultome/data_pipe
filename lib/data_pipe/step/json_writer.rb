@@ -2,7 +2,7 @@ require "json"
 require "data_pipe/steppable"
 
 module DataPipe::Step
-  class JSONWriter
+  class JsonWriter
     include DataPipe::Steppable
 
     attr_reader :params

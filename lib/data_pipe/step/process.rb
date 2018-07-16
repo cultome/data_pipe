@@ -1,6 +1,6 @@
 
 module DataPipe::Step
-  class RecordProcess
+  class Process
     include DataPipe::Steppable
 
     attr_reader :params

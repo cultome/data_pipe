@@ -4,7 +4,7 @@ require "data_pipe/record"
 require "data_pipe/steppable"
 
 module DataPipe::Step
-  class CSVLoader
+  class CsvLoader
     include DataPipe::Steppable
 
     attr_reader :resource_path

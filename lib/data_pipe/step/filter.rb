@@ -1,6 +1,6 @@
 
 module DataPipe::Step
-  class RecordFilter
+  class Filter
     include DataPipe::Steppable
 
     attr_reader :params

@@ -1,6 +1,6 @@
 
 module DataPipe::Step
-  class RecordMap
+  class Map
     include DataPipe::Steppable
 
     attr_reader :params

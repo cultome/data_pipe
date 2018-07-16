@@ -1,7 +1,7 @@
 require "data_pipe/steppable"
 
 module DataPipe::Step
-  class CSVWriter
+  class CsvWriter
     include DataPipe::Steppable
 
     attr_reader :params
