@@ -16,7 +16,7 @@ RSpec.describe "Iterator behavior" do
 
     it "schema" do
       step = prepare_step(DataPipe::Step::Schema.new, definition: {
-        "a" => DataPipe::Step::SchemaHelper::StringFieldSchema.new,
+        "a" => DataPipe::Step::SchemaHelper::String.new,
       })
       check_iterator step
     end
@@ -55,7 +55,7 @@ RSpec.describe "Iterator behavior" do
 
     it "schema" do
       step = prepare_step(DataPipe::Step::Schema.new, definition: {
-        "a" => DataPipe::Step::SchemaHelper::StringFieldSchema.new,
+        "a" => DataPipe::Step::SchemaHelper::String.new,
       })
       check_iterator step.each
     end

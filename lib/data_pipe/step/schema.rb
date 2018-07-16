@@ -9,7 +9,7 @@ module DataPipe::Step
   class Schema
     include DataPipe::Steppable
 
-    def pipe_command
+    def step_command
       :apply_schema
     end
 

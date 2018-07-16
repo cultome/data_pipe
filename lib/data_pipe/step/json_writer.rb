@@ -5,7 +5,7 @@ module DataPipe::Step
   class JsonWriter
     include DataPipe::Steppable
 
-    def pipe_command
+    def step_command
       :write_to_json
     end
 

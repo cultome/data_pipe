@@ -7,7 +7,7 @@ module DataPipe::Step
   class CsvLoader
     include DataPipe::Steppable
 
-    def pipe_command
+    def step_command
       :load_from_csv
     end
 

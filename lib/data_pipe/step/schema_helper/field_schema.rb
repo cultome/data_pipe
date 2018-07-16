@@ -6,12 +6,14 @@ module DataPipe::Step::SchemaHelper
 
     EMPTY_PARAMS = OpenStruct.new({})
 
-    def initialize(params=EMPTY_PARAMS)
-      @params = params
-    end
-
     def apply(value)
       raise "must implement it first!"
+    end
+
+    def prepare(params=EMPTY_PARAMS, &blk)
+      @params = params
+      @fnc = blk
+      self
     end
   end
 end

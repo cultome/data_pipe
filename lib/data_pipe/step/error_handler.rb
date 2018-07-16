@@ -6,7 +6,7 @@ module DataPipe::Step
 
     attr_reader :fnc
 
-    def pipe_command
+    def step_command
       :handle_error
     end
 

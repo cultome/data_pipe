@@ -3,7 +3,7 @@ module DataPipe::Step
   class Filter
     include DataPipe::Steppable
 
-    def pipe_command
+    def step_command
       :filter_records
     end
 

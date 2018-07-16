@@ -2,7 +2,15 @@ require "data_pipe/step/schema_helper/field_schema"
 require "data_pipe/error"
 
 module DataPipe::Step::SchemaHelper
-  class IntFieldSchema < FieldSchema
+  class Int < FieldSchema
+    def helper_command
+      :int_field
+    end
+
+    def int_field(params=EMPTY_PARAMS, &blk)
+      self
+    end
+
     def apply(value, record=nil)
       int_val = Integer(value)
 

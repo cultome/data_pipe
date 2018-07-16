@@ -6,7 +6,7 @@ module DataPipe::Step
 
     SEPARATOR = ","
 
-    def pipe_command
+    def step_command
       :write_to_csv
     end
 

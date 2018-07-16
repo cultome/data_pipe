@@ -13,18 +13,53 @@ module DataPipe
   end
 
   def self.included(clazz)
-    Dir.children("lib/data_pipe/step")
+    steps_base = "lib/data_pipe/step"
+
+    def get_dir_files_rec(dirname)
+      Dir.entries(dirname)
+        .select{|filename| filename !~ /^\.\.?$/}
+        .reduce([]) do |acc,child|
+          if File.directory?(child)
+            acc.concat get_dir_files_rec(child)
+          else
+            acc << File.join(dirname, child)
+          end
+
+          acc
+        end
+    end
+
+    Dir.entries(steps_base)
+      .select{|filename| filename !~ /^\.\.?$/}
+      .flat_map do |filename|
+        relative_filename = File.join(steps_base, filename)
+        if File.directory?(relative_filename)
+          get_dir_files_rec(relative_filename)
+        else
+          [relative_filename]
+        end
+      end
       .select{|filename| filename.end_with?(".rb") }
-      .map{|filename| filename.chomp ".rb" }
+      .map{|filename| filename.delete_suffix(".rb").delete_prefix(steps_base + "/") }
       .each{|name| require "data_pipe/step/#{name}" }
       .map{|name| "DataPipe::Step::#{name.camelize}".constantize }
-      .each do |step|
-        instance = step.new
-        cmd_name = instance.pipe_command
+      .map{|step| step.new }
+      .each do |instance|
+        next unless instance.respond_to? :step_command
 
+        cmd_name = instance.step_command
         Pipe.define_method cmd_name do |args={}, &blk|
           params = OpenStruct.new(args)
           pipe << instance.prepare(params, &blk)
+        end
+      end
+      .each do |instance|
+        next unless instance.respond_to? :helper_command
+
+        cmd_name = instance.helper_command
+        Pipe.define_method cmd_name do |args={}, &blk|
+          params = OpenStruct.new(args)
+          instance.prepare(params, &blk).send(cmd_name)
         end
       end
   end
@@ -46,6 +81,7 @@ module DataPipe
       end
     end
 
+=begin
     def date_field(opts={})
       params = OpenStruct.new(opts)
       Step::SchemaHelper::DateFieldSchema.new(params)
@@ -65,6 +101,7 @@ module DataPipe
       params = OpenStruct.new(opts)
       Step::SchemaHelper::FloatFieldSchema.new(params)
     end
+=end
 
     private
 

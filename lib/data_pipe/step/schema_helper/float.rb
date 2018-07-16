@@ -2,7 +2,15 @@ require "data_pipe/step/schema_helper/field_schema"
 require "data_pipe/error"
 
 module DataPipe::Step::SchemaHelper
-  class FloatFieldSchema < FieldSchema
+  class Float < FieldSchema
+    def helper_command
+      :float_field
+    end
+
+    def float_field(params=EMPTY_PARAMS, &blk)
+      self
+    end
+
     def apply(value, record=nil)
       fl_val = value.to_f
 
