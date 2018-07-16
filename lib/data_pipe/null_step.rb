@@ -1,8 +1,8 @@
-require "data_pipe/step"
+require "data_pipe/steppable"
 
 module DataPipe
   class NullStep
-    include Step
+    include DataPipe::Steppable
 
     def process(record)
       Record.new({})

@@ -1,8 +1,19 @@
+require "data_pipe/steppable"
 
-module DataPipe::Writer
-  class CSVWriter < Writer
+module DataPipe::Step
+  class CSVWriter
+    include DataPipe::Steppable
 
+    attr_reader :params
+    attr_reader :output
+
+    EMPTY_PARAMS = OpenStruct.new({})
     SEPARATOR = ","
+
+    def initialize(output, params=EMPTY_PARAMS)
+      @params = params
+      @output = output
+    end
 
     def write_header?
       params.headers.nil? ? false : params.headers

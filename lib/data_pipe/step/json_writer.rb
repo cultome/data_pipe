@@ -1,9 +1,9 @@
-require "ostruct"
-require "data_pipe/step"
+require "json"
+require "data_pipe/steppable"
 
-module DataPipe::Writer
-  class Writer
-    include DataPipe::Step
+module DataPipe::Step
+  class JSONWriter
+    include DataPipe::Steppable
 
     attr_reader :params
     attr_reader :output
@@ -18,8 +18,10 @@ module DataPipe::Writer
     def write_header?
       false
     end
+
+    def process(record)
+      output.puts record.data.to_json
+      record
+    end
   end
 end
-
-require "data_pipe/writer/csv"
-require "data_pipe/writer/json"

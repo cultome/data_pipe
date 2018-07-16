@@ -1,7 +1,7 @@
-require "data_pipe/schema/field_schema"
+require "data_pipe/step/schema/field_schema"
 require "data_pipe/error"
 
-module DataPipe::Schema
+module DataPipe::Step::Schema
   class IntFieldSchema < FieldSchema
     def apply(value, record=nil)
       int_val = Integer(value)

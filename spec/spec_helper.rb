@@ -12,8 +12,6 @@ RSpec.configure do |config|
 end
 
 include DataPipe
-include DataPipe::Schema
-include DataPipe::Loader
-include DataPipe::Writer
-include DataPipe::Transformation
+include DataPipe::Step
+include DataPipe::Step::Schema
 include DataPipe::Error

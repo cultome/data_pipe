@@ -1,8 +1,8 @@
-require "data_pipe/step"
+require "data_pipe/steppable"
 
-module DataPipe
+module DataPipe::Step
   class ErrorHandler
-    include Step
+    include DataPipe::Steppable
 
     attr_reader :fnc
 

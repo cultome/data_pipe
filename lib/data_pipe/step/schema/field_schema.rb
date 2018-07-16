@@ -1,6 +1,6 @@
 require "ostruct"
 
-module DataPipe::Schema
+module DataPipe::Step::Schema
   class FieldSchema
     attr_reader :params
 

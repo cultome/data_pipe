@@ -1,10 +1,16 @@
 require 'ostruct'
 require "data_pipe/version"
-require 'data_pipe/loader'
-require 'data_pipe/writer'
-require 'data_pipe/schema'
-require 'data_pipe/transformation'
-require 'data_pipe/error_handler'
+require 'data_pipe/steppable'
+require 'data_pipe/step/map'
+require 'data_pipe/step/process'
+require 'data_pipe/step/filter'
+require 'data_pipe/step/csv_writer'
+require 'data_pipe/step/json_writer'
+require 'data_pipe/step/csv_loader'
+require 'data_pipe/step/json_loader'
+require 'data_pipe/step/schema'
+require 'data_pipe/step/error_handler'
+
 require 'data_pipe/error'
 require 'data_pipe/null_step'
 require 'data_pipe/loggable'
@@ -49,39 +55,39 @@ module DataPipe
     end
 
     def filter_properties(*fields)
-      pipe << Transformation::RecordMap.new(fields)
+      pipe << Step::RecordMap.new(fields)
     end
 
     def map(&blk)
-      pipe << Transformation::RecordProcess.new(&blk)
+      pipe << Step::RecordProcess.new(&blk)
     end
 
     def filter_records(&blk)
-      pipe << Transformation::RecordFilter.new(&blk)
+      pipe << Step::RecordFilter.new(&blk)
     end
 
     def apply_schema(schema)
-      pipe << Schema::Schema.new(schema)
+      pipe << Step::Schema::Schema.new(schema)
     end
 
     def date_field(opts={})
       params = OpenStruct.new(opts)
-      Schema::DateFieldSchema.new(params)
+      Step::Schema::DateFieldSchema.new(params)
     end
 
     def string_field(opts={})
       params = OpenStruct.new(opts)
-      Schema::StringFieldSchema.new(params)
+      Step::Schema::StringFieldSchema.new(params)
     end
 
     def int_field(opts={})
       params = OpenStruct.new(opts)
-      Schema::IntFieldSchema.new(params)
+      Step::Schema::IntFieldSchema.new(params)
     end
 
     def float_field(opts={})
       params = OpenStruct.new(opts)
-      Schema::FloatFieldSchema.new(params)
+      Step::Schema::FloatFieldSchema.new(params)
     end
 
     private
@@ -93,15 +99,15 @@ module DataPipe
 
     def get_loader(res_type, resource_path, params)
       case res_type
-      when :csv then Loader::CSVLoader.new(resource_path, params)
-      when :json then Loader::JSONLoader.new(resource_path, params)
+      when :csv then Step::CSVLoader.new(resource_path, params)
+      when :json then Step::JSONLoader.new(resource_path, params)
       end
     end
 
     def get_writer(type, output, params)
       case type
-      when :csv then Writer::CSVWriter.new(output, params)
-      when :json then Writer::JSONWriter.new(output, params)
+      when :csv then Step::CSVWriter.new(output, params)
+      when :json then Step::JSONWriter.new(output, params)
       end
     end
 

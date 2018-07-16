@@ -1,13 +1,13 @@
 require "data_pipe/record"
-require 'data_pipe/schema/date'
-require 'data_pipe/schema/string'
-require 'data_pipe/schema/int'
-require 'data_pipe/schema/float'
-require "data_pipe/step"
+require 'data_pipe/step/schema/date'
+require 'data_pipe/step/schema/string'
+require 'data_pipe/step/schema/int'
+require 'data_pipe/step/schema/float'
+require "data_pipe/steppable"
 
-module DataPipe::Schema
+module DataPipe::Step::Schema
   class Schema
-    include DataPipe::Step
+    include DataPipe::Steppable
 
     attr_reader :schema
 

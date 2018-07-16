@@ -1,6 +1,6 @@
 require "data_pipe/loggable"
 
-module DataPipe::Step
+module DataPipe::Steppable
   include Enumerable
   include DataPipe::Loggable
 
