@@ -1,6 +1,6 @@
-require "data_pipe/step/schema/field_schema"
+require "data_pipe/step/schema_helper/field_schema"
 
-module DataPipe::Step::Schema
+module DataPipe::Step::SchemaHelper
   class StringFieldSchema < FieldSchema
     def apply(value, record)
 

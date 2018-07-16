@@ -7,19 +7,13 @@ module DataPipe::Step
   class JsonLoader
     include DataPipe::Steppable
 
-    attr_reader :resource_path
-    attr_reader :params
-
-    EMPTY_PARAMS = OpenStruct.new({})
-
-    def initialize(resource_path, params=EMPTY_PARAMS)
-      @resource_path = resource_path
-      @params = params
+    def pipe_command
+      :load_from_json
     end
 
     def iter
       Enumerator.new do |rsp|
-        JSON.load(open(resource_path)).each do |obj|
+        JSON.load(open(params.stream)).each do |obj|
           rsp << Record.new(obj)
         end
       end

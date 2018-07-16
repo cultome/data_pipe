@@ -8,14 +8,14 @@ RSpec.describe "Step to handle pipe errors" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from "spec/sample/3.csv", headers: true
+        load_from_csv stream: "spec/sample/3.csv", headers: true
         handle_error do |err|
           handler_called = true
         end
-        apply_schema({
+        apply_schema definition: {
           "age" => int_field,
-        })
-        write_to :csv, output
+        }
+        write_to_csv stream: output
       end.process!
 
       expect(handler_called).to be true

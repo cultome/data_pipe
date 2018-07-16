@@ -7,21 +7,16 @@ module DataPipe::Step
   class CsvLoader
     include DataPipe::Steppable
 
-    attr_reader :resource_path
-    attr_reader :params
-
-    EMPTY_PARAMS = OpenStruct.new({})
-
-    def initialize(resource_path, params=EMPTY_PARAMS)
-      @resource_path = resource_path
-      @params = {
-        headers: params.headers.nil? ? false : params.headers
-      }
+    def pipe_command
+      :load_from_csv
     end
 
     def iter
       Enumerator.new do |rsp|
-        CSV.foreach(resource_path, params) do |row|
+        loader_params = {
+          headers: params.headers.nil? ? false : params.headers
+        }
+        CSV.foreach(params.stream, loader_params) do |row|
           record = get_record(row)
           rsp << record
         end

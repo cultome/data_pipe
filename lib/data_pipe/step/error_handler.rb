@@ -6,12 +6,8 @@ module DataPipe::Step
 
     attr_reader :fnc
 
-    def self.pipe_command
-      :error_handler
-    end
-
-    def initialize(&blk)
-      @fnc = blk
+    def pipe_command
+      :handle_error
     end
 
     def iter

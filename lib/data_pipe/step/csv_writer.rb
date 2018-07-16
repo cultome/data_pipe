@@ -4,15 +4,10 @@ module DataPipe::Step
   class CsvWriter
     include DataPipe::Steppable
 
-    attr_reader :params
-    attr_reader :output
-
-    EMPTY_PARAMS = OpenStruct.new({})
     SEPARATOR = ","
 
-    def initialize(output, params=EMPTY_PARAMS)
-      @params = params
-      @output = output
+    def pipe_command
+      :write_to_csv
     end
 
     def write_header?
@@ -28,13 +23,13 @@ module DataPipe::Step
             wrote_headers = true
             line = record.headers.join(SEPARATOR)
 
-            output.puts line
+            params.stream.puts line
             rsp << line
           end
 
           line = record.values.join(SEPARATOR)
 
-          output.puts line
+          params.stream.puts line
           rsp << record
         end
       end

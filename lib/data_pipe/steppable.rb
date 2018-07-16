@@ -5,6 +5,16 @@ module DataPipe::Steppable
   include DataPipe::Loggable
 
   attr_reader :input
+  attr_reader :params
+  attr_reader :fnc
+
+  EMPTY_PARAMS = OpenStruct.new({})
+
+  def prepare(params=EMPTY_PARAMS, &blk)
+    @params = params
+    @fnc = blk
+    self
+  end
 
   def set_input(input)
     @input = input

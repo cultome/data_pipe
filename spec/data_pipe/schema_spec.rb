@@ -7,11 +7,11 @@ RSpec.describe "Schema definition and validations" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from "spec/sample/1.csv", headers: true
-        apply_schema({
+        load_from_csv stream: "spec/sample/1.csv", headers: true
+        apply_schema definition: {
           "date" => date_field(format: "%Y-%m-%d"),
-        })
-        write_to :csv, output
+        }
+        write_to_csv stream: output
       end.process!
 
       expect(output.string).to eq <<-FILE
@@ -23,10 +23,10 @@ RSpec.describe "Schema definition and validations" do
       pipe = DataPipe.create do
         log_to StringIO.new
 
-        load_from "spec/sample/1.csv", headers: true
-        apply_schema({
+        load_from_csv stream: "spec/sample/1.csv", headers: true
+        apply_schema definition: {
           "date" => date_field(format: "%m-%d-%Y"),
-        })
+        }
       end
 
       expect{ pipe.process! }.to raise_error(ValidationError)
@@ -38,11 +38,11 @@ RSpec.describe "Schema definition and validations" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from "spec/sample/1.csv", headers: true
-        apply_schema({
+        load_from_csv stream: "spec/sample/1.csv", headers: true
+        apply_schema definition: {
           "string" => string_field(format: /^[A-Z]/),
-        })
-        write_to :csv, output
+        }
+        write_to_csv stream: output
       end.process!
 
       expect(output.string).to eq <<-FILE
@@ -54,10 +54,10 @@ RSpec.describe "Schema definition and validations" do
       pipe = DataPipe.create do
         log_to StringIO.new
 
-        load_from "spec/sample/1.csv", headers: true
-        apply_schema({
+        load_from_csv stream: "spec/sample/1.csv", headers: true
+        apply_schema definition: {
           "string" => string_field(format: /^[0-9]/),
-        })
+        }
       end
 
       expect{ pipe.process! }.to raise_error(ValidationError)
@@ -69,11 +69,11 @@ RSpec.describe "Schema definition and validations" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from "spec/sample/1.csv", headers: true
-        apply_schema({
+        load_from_csv stream: "spec/sample/1.csv", headers: true
+        apply_schema definition: {
           "int" => int_field(min: 1, max: 100),
-        })
-        write_to :json, output
+        }
+        write_to_json stream: output
       end.process!
 
       expect(output.string).to eq <<-FILE
@@ -85,10 +85,10 @@ RSpec.describe "Schema definition and validations" do
       pipe = DataPipe.create do
         log_to StringIO.new
 
-        load_from "spec/sample/1.csv", headers: true
-        apply_schema({
+        load_from_csv stream: "spec/sample/1.csv", headers: true
+        apply_schema definition: {
           "int" => int_field(min: 1, max: 10),
-        })
+        }
       end
 
       expect{ pipe.process! }.to raise_error(ValidationError)
@@ -100,11 +100,11 @@ RSpec.describe "Schema definition and validations" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from "spec/sample/1.csv", headers: true
-        apply_schema({
+        load_from_csv stream: "spec/sample/1.csv", headers: true
+        apply_schema definition: {
           "float" => float_field(min: 1, max: 100),
-        })
-        write_to :json, output
+        }
+        write_to_json stream: output
       end.process!
 
       expect(output.string).to eq <<-FILE
@@ -116,10 +116,10 @@ RSpec.describe "Schema definition and validations" do
       pipe = DataPipe.create do
         log_to StringIO.new
 
-        load_from "spec/sample/1.csv", headers: true
-        apply_schema({
+        load_from_csv stream: "spec/sample/1.csv", headers: true
+        apply_schema definition: {
           "float" => float_field(min: 2, max: 10),
-        })
+        }
       end
 
       expect{ pipe.process! }.to raise_error(ValidationError)

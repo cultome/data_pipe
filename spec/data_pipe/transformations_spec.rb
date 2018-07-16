@@ -7,9 +7,9 @@ RSpec.describe "Transformations" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from "spec/sample/1.csv", headers: true
-        filter_properties "string", "int"
-        write_to :csv, output, headers: true
+        load_from_csv stream: "spec/sample/1.csv", headers: true
+        filter_properties keys: ["string", "int"]
+        write_to_csv stream: output, headers: true
       end.process!
 
       expect(output.string).to eq <<-FILE
@@ -24,14 +24,14 @@ Carlos,34
       DataPipe.create do
         log_to StringIO.new
 
-        load_from "spec/sample/2.csv", headers: true
-        apply_schema({
+        load_from_csv stream: "spec/sample/2.csv", headers: true
+        apply_schema definition: {
           "age" => int_field,
-        })
+        }
         filter_records do |record|
           record["age"] > 18
         end
-        write_to :csv, output, headers: true
+        write_to_csv stream: output, headers: true
       end.process!
 
       expect(output.string).to eq <<-FILE
@@ -47,11 +47,11 @@ Carlos,34,csoria@cultome.io
       DataPipe.create do
         log_to StringIO.new
 
-        load_from "spec/sample/1.csv", headers: true
+        load_from_csv stream: "spec/sample/1.csv", headers: true
         map do |record|
           record.reduce({}){|acc,(k,_)| acc[k] = "test"; acc }
         end
-        write_to :csv, output, headers: true
+        write_to_csv stream: output, headers: true
       end.process!
 
       expect(output.string).to eq <<-FILE

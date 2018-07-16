@@ -7,8 +7,8 @@ RSpec.describe "Handle of CSV files" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from "spec/sample/1.csv"
-        write_to :csv, output, headers: true
+        load_from_csv stream: "spec/sample/1.csv"
+        write_to_csv stream: output, headers: true
       end.process!
 
       expect(output.string).to eq <<-FILE
@@ -23,8 +23,8 @@ date,string,int,float
       DataPipe.create do
         log_to StringIO.new
 
-        load_from "spec/sample/1.csv"
-        write_to :csv, output
+        load_from_csv stream: "spec/sample/1.csv"
+        write_to_csv stream: output
       end.process!
 
       expect(output.string).to eq <<-FILE
@@ -41,8 +41,8 @@ date,string,int,float
       DataPipe.create do
         log_to StringIO.new
 
-        load_from "spec/sample/1.csv", headers: true
-        write_to :csv, output
+        load_from_csv stream: "spec/sample/1.csv", headers: true
+        write_to_csv stream: output
       end.process!
 
       expect(output.string).to eq <<-FILE
@@ -56,8 +56,8 @@ date,string,int,float
       DataPipe.create do
         log_to StringIO.new
 
-        load_from "spec/sample/1.csv", headers: true
-        write_to :csv, output, headers: true
+        load_from_csv stream: "spec/sample/1.csv", headers: true
+        write_to_csv stream: output, headers: true
       end.process!
 
       expect(output.string).to eq <<-FILE

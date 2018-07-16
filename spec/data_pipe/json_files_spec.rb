@@ -6,14 +6,14 @@ RSpec.describe "Handle of JSON files" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from "spec/sample/1.json", headers: true
-        apply_schema({
+        load_from_json stream: "spec/sample/1.json", headers: true
+        apply_schema definition: {
           "date" => date_field(format: "%Y-%m-%d"),
           "string" => string_field(format: /^[A-Z]/),
           "int" => int_field(min: 1, max: 100),
           "float" => float_field(min: 1, max: 100),
-        })
-        write_to :json, output
+        }
+        write_to_json stream: output
       end.process!
 
       expect(output.string).to eq <<-FILE

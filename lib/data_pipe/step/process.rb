@@ -3,14 +3,8 @@ module DataPipe::Step
   class Process
     include DataPipe::Steppable
 
-    attr_reader :params
-    attr_reader :fnc
-
-    EMPTY_PARAMS = OpenStruct.new({})
-
-    def initialize(params=EMPTY_PARAMS, &blk)
-      @params = params
-      @fnc = blk
+    def pipe_command
+      :map
     end
 
     def process(record)

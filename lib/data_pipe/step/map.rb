@@ -3,18 +3,12 @@ module DataPipe::Step
   class Map
     include DataPipe::Steppable
 
-    attr_reader :params
-    attr_reader :fnc
-
-    EMPTY_PARAMS = OpenStruct.new({})
-
-    def initialize(params=EMPTY_PARAMS, &blk)
-      @params = params
-      @fnc = blk
+    def pipe_command
+      :filter_properties
     end
 
     def process(record)
-      filtered = record.data.select{|k,v| params.include? k}
+      filtered = record.data.select{|k,v| params.keys.include? k}
       Record.new(filtered, record.params)
     end
   end
