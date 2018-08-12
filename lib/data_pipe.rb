@@ -43,23 +43,26 @@ module DataPipe
       .map{|filename| filename.delete_suffix(".rb").delete_prefix(steps_base + "/") }
       .each{|name| require "data_pipe/step/#{name}" }
       .map{|name| "DataPipe::Step::#{name.camelize}".constantize }
-      .map{|step| step.new }
-      .each do |instance|
+      .each do |step|
+        instance = step.new
         next unless instance.respond_to? :step_command
 
         cmd_name = instance.step_command
         Pipe.define_method cmd_name do |args={}, &blk|
+          local_instance = step.new
           params = OpenStruct.new(args)
-          pipe << instance.prepare(params, &blk)
+          pipe << local_instance.prepare(params, &blk)
         end
       end
-      .each do |instance|
+      .each do |step|
+        instance = step.new
         next unless instance.respond_to? :helper_command
 
         cmd_name = instance.helper_command
         Pipe.define_method cmd_name do |args={}, &blk|
+          local_instance = step.new
           params = OpenStruct.new(args)
-          instance.prepare(params, &blk).send(cmd_name)
+          local_instance.prepare(params, &blk).send(cmd_name)
         end
       end
   end
@@ -80,28 +83,6 @@ module DataPipe
         record
       end
     end
-
-=begin
-    def date_field(opts={})
-      params = OpenStruct.new(opts)
-      Step::SchemaHelper::DateFieldSchema.new(params)
-    end
-
-    def string_field(opts={})
-      params = OpenStruct.new(opts)
-      Step::SchemaHelper::StringFieldSchema.new(params)
-    end
-
-    def int_field(opts={})
-      params = OpenStruct.new(opts)
-      Step::SchemaHelper::IntFieldSchema.new(params)
-    end
-
-    def float_field(opts={})
-      params = OpenStruct.new(opts)
-      Step::SchemaHelper::FloatFieldSchema.new(params)
-    end
-=end
 
     private
 
