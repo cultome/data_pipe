@@ -30,7 +30,7 @@ module DataPipe::Step
 
     def transform_field(field, value, record)
       if params.definition.has_key? field
-        params.definition[field].apply(value, record)
+        params.definition[field].apply(value, field, record)
       else
         value
       end

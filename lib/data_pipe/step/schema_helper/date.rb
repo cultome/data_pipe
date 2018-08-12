@@ -12,7 +12,17 @@ module DataPipe::Step::SchemaHelper
       self
     end
 
-    def apply(value, record=nil)
+    def apply(value, field, record=nil)
+      return if !params.required? && value.to_s.empty?
+      return unless params.format?
+
+      if value.is_a? ::String
+        ::Date.strptime(value, params.format)
+      else
+        record[field] = value.strftime(params.format)
+      end
+    rescue Exception => err
+      raise ValidationError.new(record, err.to_s + " in field [#{field}]")
     end
   end
 end

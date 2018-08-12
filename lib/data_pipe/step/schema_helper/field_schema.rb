@@ -6,7 +6,7 @@ module DataPipe::Step::SchemaHelper
 
     EMPTY_PARAMS = OpenStruct.new({})
 
-    def apply(value)
+    def apply(value, field, record)
       raise "must implement it first!"
     end
 

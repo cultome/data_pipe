@@ -11,19 +11,19 @@ module DataPipe::Step::SchemaHelper
       self
     end
 
-    def apply(value, record=nil)
+    def apply(value, field, record=nil)
       float_value = value.to_s.gsub(" ", "").gsub(",", "")
       return if !params.required? && float_value.to_s.empty?
 
       fl_val = Float(float_value)
 
       if params.min?
-        error_msg =  "[#{fl_val}] has not the minimum expected value [#{params.min}]"
+        error_msg =  "[#{fl_val}] has not the minimum expected value [#{params.min}] in field [#{field}]"
         raise ValidationError.new(record, error_msg) unless fl_val >= params.min
       end
 
       if params.max?
-        error_msg =  "[#{fl_val}] exceeded the expected value [#{params.max}]"
+        error_msg =  "[#{fl_val}] exceeded the expected value [#{params.max}] in field [#{field}]"
         raise ValidationError.new(record, error_msg) unless fl_val <= params.max
       end
 
