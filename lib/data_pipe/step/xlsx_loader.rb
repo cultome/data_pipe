@@ -13,7 +13,7 @@ module DataPipe::Step
 
       params.sheet = 0 unless params.respond_to? :sheet
       params.first_data_row = 1 unless params.respond_to? :first_data_row
-      params.has_header = params.respond_to? :header_row
+      params.headers = params.respond_to? :header_row
 
       self
     end
@@ -26,15 +26,16 @@ module DataPipe::Step
       Enumerator.new do |rsp|
         workbook = RubyXL::Parser.parse(params.stream)
         worksheet = workbook[params.sheet]
+        headers = []
 
         worksheet.each do |row|
           next unless row
 
-          if params.has_header && params.header_row == row.r
+          if params.headers && params.header_row == row.r
             headers = get_headers(row.cells)
-            record = Record.new(headers, params)
+            next
           elsif params.first_data_row <= row.r
-            data = get_data(row.cells)
+            data = get_data(row.cells, headers)
             record = Record.new(data, params)
           else
             next
@@ -48,22 +49,31 @@ module DataPipe::Step
     private
 
     def get_headers(cells)
-      data = {}
+      data = []
 
       cells.each do |cell|
         val = cell && cell.value
-        data[cell.column] = val
+        data << val
       end
 
       data
     end
 
-    def get_data(cells)
+    def get_data(cells, headers)
       data = {}
 
-      cells.each do |cell|
-        val = cell && cell.value
-        data[cell.column] = val
+      if headers.empty?
+        cells.each do |cell|
+          val = cell && cell.value
+          data[cell.column] = val
+        end
+      else
+        cells.zip(headers).each do |(cell, header)|
+          next if header.nil?
+
+          val = cell && cell.value
+          data[header] = val
+        end
       end
 
       data
