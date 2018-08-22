@@ -15,6 +15,8 @@ module DataPipe::Step::SchemaHelper
       float_value = value.to_s.gsub(" ", "").gsub(",", "")
       return if !params.required? && float_value.to_s.empty?
 
+      return params.default if float_value.to_s.empty? && params.default?
+
       fl_val = Float(float_value)
 
       if params.min?

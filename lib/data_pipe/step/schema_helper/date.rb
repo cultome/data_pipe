@@ -16,6 +16,8 @@ module DataPipe::Step::SchemaHelper
       return unless params.format?
       return if !params.required? && value.to_s.empty?
 
+      return params.default if value.to_s.empty? && params.default?
+
       if value.is_a? ::String
         date = ::Date.strptime(value, params.format)
       else

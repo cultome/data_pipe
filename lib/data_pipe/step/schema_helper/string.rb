@@ -12,6 +12,8 @@ module DataPipe::Step::SchemaHelper
     end
 
     def apply(value, field, record)
+      return params.default if value.to_s.empty? && params.default?
+
       if params.required?
         raise DataPipe::Error::ValidationError.new(record, "Field [#{field}] required!") if value.to_s.empty?
       end

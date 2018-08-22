@@ -15,16 +15,16 @@ module DataPipe::Step::SchemaHelper
       int_value = value.to_s.gsub(" ", "").gsub(",", "")
       return if !params.required? && int_value.to_s.empty?
 
+      return params.default if int_value.to_s.empty? && params.default?
+
       int_val = Integer(int_value)
 
       if params.min?
-        error_msg =  "[#{int_val}] has not the minimum expected value [#{params.min}] in field [#{field}]"
-        raise DataPipe::Error::ValidationError.new(record, error_msg) unless int_val >= params.min
+        raise "[#{int_val}] has not the minimum expected value [#{params.min}] in field [#{field}]" unless int_val >= params.min
       end
 
       if params.max?
-        error_msg =  "[#{int_val}] exceeded the maximum expected value [#{params.max}] in field [#{field}]"
-        raise DataPipe::Error::ValidationError.new(record, error_msg) unless int_val <= params.max
+        raise "[#{int_val}] exceeded the maximum expected value [#{params.max}] in field [#{field}]" unless int_val <= params.max
       end
 
       int_val
