@@ -13,16 +13,23 @@ module DataPipe::Step::SchemaHelper
     end
 
     def apply(value, field, record=nil)
-      return if !params.required? && value.to_s.empty?
       return unless params.format?
+      return if !params.required? && value.to_s.empty?
 
       if value.is_a? ::String
-        ::Date.strptime(value, params.format)
+        date = ::Date.strptime(value, params.format)
       else
-        record[field] = value.strftime(params.format)
+        date = value
+        record.data[field] = value.strftime(params.format)
+      end
+
+      if params.past_only?
+        if date > ::Date.today
+          raise DataPipe::Error::ValidationError.new(record.data, "[#{date}] is a date in the future Doc!")
+        end
       end
     rescue Exception => err
-      raise ValidationError.new(record, err.to_s + " in field [#{field}]")
+      raise DataPipe::Error::ValidationError.new(record.data, err.to_s + " in field [#{field}]")
     end
   end
 end

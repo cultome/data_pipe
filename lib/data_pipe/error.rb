@@ -22,4 +22,7 @@ module DataPipe::Error
 
   class ValidationError < DataPipeError
   end
+
+  class ConfigurationError < DataPipeError
+  end
 end

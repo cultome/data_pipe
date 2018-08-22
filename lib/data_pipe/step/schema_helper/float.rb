@@ -19,17 +19,17 @@ module DataPipe::Step::SchemaHelper
 
       if params.min?
         error_msg =  "[#{fl_val}] has not the minimum expected value [#{params.min}] in field [#{field}]"
-        raise ValidationError.new(record, error_msg) unless fl_val >= params.min
+        raise DataPipe::Error::ValidationError.new(record, error_msg) unless fl_val >= params.min
       end
 
       if params.max?
         error_msg =  "[#{fl_val}] exceeded the expected value [#{params.max}] in field [#{field}]"
-        raise ValidationError.new(record, error_msg) unless fl_val <= params.max
+        raise DataPipe::Error::ValidationError.new(record, error_msg) unless fl_val <= params.max
       end
 
       fl_val
     rescue Exception => err
-      raise ValidationError.new(record, err)
+      raise DataPipe::Error::ValidationError.new(record, err)
     end
   end
 end

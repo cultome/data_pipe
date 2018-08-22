@@ -14,11 +14,12 @@ module DataPipe::Step
       Enumerator.new do |rsp|
         it = input.each
         loop do
-          rsp << it.next
+          value = it.next
+          rsp << value
         rescue StopIteration
           break
         rescue Exception => err
-          fnc.call(err)
+          fnc.call(err, value)
         end
       end
     end
