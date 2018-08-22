@@ -25,7 +25,7 @@ module DataPipe::Step::SchemaHelper
 
       if params.past_only?
         if date > ::Date.today
-          raise DataPipe::Error::ValidationError.new(record.data, "[#{date}] is a date in the future Doc!")
+          raise "[#{date}] is a date in the future Doc!"
         end
       end
     rescue Exception => err

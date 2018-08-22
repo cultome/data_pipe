@@ -13,7 +13,7 @@ module DataPipe
   end
 
   def self.included(clazz)
-    steps_base = "lib/data_pipe/step"
+    steps_base = "#{__dir__}/data_pipe/step"
 
     def get_dir_files_rec(dirname)
       Dir.entries(dirname)
