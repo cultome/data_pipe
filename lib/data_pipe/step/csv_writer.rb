@@ -1,4 +1,5 @@
 require "data_pipe/steppable"
+require "csv"
 
 module DataPipe::Step
   class CsvWriter
@@ -21,13 +22,13 @@ module DataPipe::Step
         input.each do |record|
           if write_header? && record.headers? && !wrote_headers
             wrote_headers = true
-            line = record.headers.join(SEPARATOR)
+            line = record.headers.to_csv
 
             params.stream.puts line
             rsp << line
           end
 
-          line = record.values.join(SEPARATOR)
+          line = record.values.to_csv
 
           params.stream.puts line
           rsp << record
