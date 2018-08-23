@@ -20,9 +20,11 @@ module DataPipe::Step::SchemaHelper
 
       if value.is_a? ::String
         date = ::Date.strptime(value, params.format)
+        ret_value = value
       else
         date = value
-        record.data[field] = value.strftime(params.format)
+        ret_value = value.strftime(params.format)
+        record.data[field] = ret_value
       end
 
       if params.past_only?
@@ -30,6 +32,8 @@ module DataPipe::Step::SchemaHelper
           raise "[#{date}] is a date in the future Doc!"
         end
       end
+
+      ret_value
     rescue Exception => err
       raise DataPipe::Error::ValidationError.new(record.data, err.to_s + " in field [#{field}]")
     end
