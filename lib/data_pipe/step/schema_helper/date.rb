@@ -1,6 +1,9 @@
 require "date"
 require "data_pipe/step/schema_helper/field_schema"
 require "data_pipe/error"
+require "data_pipe/refinements"
+
+using DataPipe::StringUtils
 
 module DataPipe::Step::SchemaHelper
   class Date < FieldSchema
@@ -20,11 +23,18 @@ module DataPipe::Step::SchemaHelper
 
       if value.is_a? ::String
         date = ::Date.strptime(value, params.format)
-        ret_value = value
+        ret_value = value.strip
       else
         date = value
-        ret_value = value.strftime(params.format)
+        ret_value = value.strftime(params.format).strip
         record.data[field] = ret_value
+      end
+
+      regex = translate_to_regex(params.format)
+
+      unless ret_value.match(regex)
+        require "pry";binding.pry
+        raise "[#{ret_value}] is not a valid date!"
       end
 
       if params.past_only?
@@ -36,6 +46,25 @@ module DataPipe::Step::SchemaHelper
       ret_value
     rescue Exception => err
       raise DataPipe::Error::ValidationError.new(record.data, err.to_s + " in field [#{field}]")
+    end
+
+    private
+
+    def translate_to_regex(format)
+      regex = format
+        .scan(/%\w/)
+        .map{|exp|
+          case exp
+          when "%d" then ["%d", "[\\d]{2}"]
+          when "%m" then ["%m", "[\\d]{2}"]
+          when "%Y" then ["%Y", "[\\d]{4}"]
+          end
+        }
+        .reduce(format){|acc, (exp, regex_piece)|
+          acc.gsub(exp, regex_piece)
+        }
+
+      Regexp.new("^#{regex}$")
     end
   end
 end
