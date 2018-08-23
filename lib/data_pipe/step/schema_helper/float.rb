@@ -1,5 +1,8 @@
 require "data_pipe/step/schema_helper/field_schema"
 require "data_pipe/error"
+require "data_pipe/refinements"
+
+using DataPipe::StringUtils
 
 module DataPipe::Step::SchemaHelper
   class Float < FieldSchema
@@ -12,7 +15,7 @@ module DataPipe::Step::SchemaHelper
     end
 
     def apply(value, field, record=nil)
-      float_value = value.to_s.gsub(" ", "").gsub(",", "")
+      float_value = value.to_s.strip.gsub(",", "")
       return if !params.required? && float_value.to_s.empty?
 
       return params.default if float_value.to_s.empty? && params.default?

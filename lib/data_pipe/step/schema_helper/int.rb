@@ -1,5 +1,8 @@
 require "data_pipe/step/schema_helper/field_schema"
 require "data_pipe/error"
+require "data_pipe/refinements"
+
+using DataPipe::StringUtils
 
 module DataPipe::Step::SchemaHelper
   class Int < FieldSchema
@@ -12,10 +15,10 @@ module DataPipe::Step::SchemaHelper
     end
 
     def apply(value, field, record=nil)
-      int_value = value.to_s.gsub(" ", "").gsub(",", "")
-      return if !params.required? && int_value.to_s.empty?
+      int_value = value.to_s.strip.gsub(",", "")
+      return if !params.required? && int_value.empty?
 
-      return params.default if int_value.to_s.empty? && params.default?
+      return params.default if int_value.empty? && params.default?
 
       int_val = Integer(int_value)
 

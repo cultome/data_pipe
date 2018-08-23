@@ -1,5 +1,8 @@
 require "data_pipe/step/schema_helper/field_schema"
 require "data_pipe/error"
+require "data_pipe/refinements"
+
+using DataPipe::StringUtils
 
 module DataPipe::Step::SchemaHelper
   class String < FieldSchema
@@ -12,18 +15,19 @@ module DataPipe::Step::SchemaHelper
     end
 
     def apply(value, field, record)
-      return params.default if value.to_s.empty? && params.default?
+      ret_value = value.to_s.strip
+      return params.default if ret_value.empty? && params.default?
 
       if params.required?
-        raise DataPipe::Error::ValidationError.new(record, "Field [#{field}] required!") if value.to_s.empty?
+        raise DataPipe::Error::ValidationError.new(record, "Field [#{field}] required!") if ret_value.empty?
       end
 
       if params.format?
-        error_msg = "[#{value}] doesnt match the expected format [#{params.format}] in field [#{field}]"
-        raise DataPipe::Error::ValidationError.new(record, error_msg) unless value.to_s.match? params.format
+        error_msg = "[#{ret_value}] doesnt match the expected format [#{params.format}] in field [#{field}]"
+        raise DataPipe::Error::ValidationError.new(record, error_msg) unless ret_value.match? params.format
       end
 
-      value.to_s
+      ret_value
     end
   end
 end

@@ -19,28 +19,24 @@ module DataPipe::Step::SchemaHelper
       return unless params.format?
       return if !params.required? && value.to_s.empty?
 
-      return params.default if value.to_s.empty? && params.default?
-
+      ret_value = ""
       if value.is_a? ::String
-        date = ::Date.strptime(value, params.format)
         ret_value = value.strip
-      else
-        date = value
-        ret_value = value.strftime(params.format).strip
+      else # is a Date
+        ret_value = value.strftime(params.format)
+
         record.data[field] = ret_value
       end
 
+      return params.default if ret_value.empty? && params.default?
+
       regex = translate_to_regex(params.format)
 
-      unless ret_value.match(regex)
-        require "pry";binding.pry
-        raise "[#{ret_value}] is not a valid date!"
-      end
+      raise "[#{ret_value}] is not a valid date!" unless ret_value.match(regex)
 
       if params.past_only?
-        if date > ::Date.today
-          raise "[#{date}] is a date in the future Doc!"
-        end
+        date = ::Date.strptime(ret_value, params.format)
+        raise "[#{date}] is a date in the future Doc!" if date > ::Date.today
       end
 
       ret_value
