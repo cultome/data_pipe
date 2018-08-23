@@ -20,6 +20,7 @@ Or install it yourself as:
 
 ## TODO
 
+ * Agregar logica para eliminar datos mapeados que regresen nil
  * Improve naming of the transformations steps
  * Filter by date criterias (in general operate with date data)
  * Add sorting step

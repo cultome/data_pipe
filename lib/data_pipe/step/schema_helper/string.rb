@@ -27,6 +27,8 @@ module DataPipe::Step::SchemaHelper
         raise DataPipe::Error::ValidationError.new(record, error_msg) unless ret_value.match? params.format
       end
 
+      return ret_value.titlecase if params.titlecase?
+
       ret_value
     end
   end
