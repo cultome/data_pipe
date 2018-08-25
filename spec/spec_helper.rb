@@ -1,3 +1,10 @@
+require 'simplecov'
+SimpleCov.start do
+  add_filter do |src|
+    src.filename.end_with? "_spec.rb"
+  end
+end
+
 require "bundler/setup"
 require "data_pipe"
 

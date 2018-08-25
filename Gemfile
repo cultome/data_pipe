@@ -8,3 +8,7 @@ gemspec
 gem "activesupport", "~> 5.2"
 
 gem "rubyXL", "~> 3.3"
+
+gem "elasticsearch", "~> 6.1"
+
+gem "simplecov", "~> 0.16.1"
