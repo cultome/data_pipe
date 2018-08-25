@@ -13,7 +13,7 @@ RSpec.describe "Handle of CSV files" do
 
       expect(output.string).to eq <<-FILE
 date,string,int,float
-2018-12-31,Carlos,34,1.85
+2118-12-31,Carlos,34,1.85
       FILE
     end
 
@@ -29,7 +29,7 @@ date,string,int,float
 
       expect(output.string).to eq <<-FILE
 date,string,int,float
-2018-12-31,Carlos,34,1.85
+2118-12-31,Carlos,34,1.85
       FILE
     end
   end
@@ -46,7 +46,7 @@ date,string,int,float
       end.process!
 
       expect(output.string).to eq <<-FILE
-2018-12-31,Carlos,34,1.85
+2118-12-31,Carlos,34,1.85
       FILE
     end
 
@@ -62,7 +62,7 @@ date,string,int,float
 
       expect(output.string).to eq <<-FILE
 date,string,int,float
-2018-12-31,Carlos,34,1.85
+2118-12-31,Carlos,34,1.85
       FILE
     end
   end

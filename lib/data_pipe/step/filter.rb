@@ -1,7 +1,7 @@
 
 module DataPipe::Step
   class Filter
-    include DataPipe::Steppable
+    include DataPipe::Stepable
 
     def step_command
       :filter_records

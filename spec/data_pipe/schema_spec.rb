@@ -15,8 +15,21 @@ RSpec.describe "Schema definition and validations" do
       end.process!
 
       expect(output.string).to eq <<-FILE
-2018-12-31,Carlos,34,1.85
+2118-12-31,Carlos,34,1.85
       FILE
+    end
+
+    it "date_field with future dates validation" do
+      pipe = DataPipe.create do
+        log_to StringIO.new
+
+        load_from_csv stream: "spec/sample/1.csv", headers: true
+        apply_schema definition: {
+          "date" => date_field(format: "%Y-%m-%d", past_only: true),
+        }
+      end
+
+      expect{ pipe.process! }.to raise_error DataPipe::Error::ValidationError
     end
 
     it "date_field failed" do
@@ -46,7 +59,7 @@ RSpec.describe "Schema definition and validations" do
       end.process!
 
       expect(output.string).to eq <<-FILE
-2018-12-31,Carlos,34,1.85
+2118-12-31,Carlos,34,1.85
       FILE
     end
 
@@ -77,7 +90,7 @@ RSpec.describe "Schema definition and validations" do
       end.process!
 
       expect(output.string).to eq <<-FILE
-{"date":"2018-12-31","string":"Carlos","int":34,"float":"1.85"}
+{"date":"2118-12-31","string":"Carlos","int":34,"float":"1.85"}
       FILE
     end
 
@@ -108,7 +121,7 @@ RSpec.describe "Schema definition and validations" do
       end.process!
 
       expect(output.string).to eq <<-FILE
-{"date":"2018-12-31","string":"Carlos","int":"34","float":1.85}
+{"date":"2118-12-31","string":"Carlos","int":"34","float":1.85}
       FILE
     end
 

@@ -1,4 +1,4 @@
-require "data_pipe/steppable"
+require "data_pipe/stepable"
 
 module DataPipe
   class NullStep

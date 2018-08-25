@@ -19,12 +19,7 @@ module DataPipe
       Dir.entries(dirname)
         .select{|filename| filename !~ /^\.\.?$/}
         .reduce([]) do |acc,child|
-          if File.directory?(child)
-            acc.concat get_dir_files_rec(child)
-          else
-            acc << File.join(dirname, child)
-          end
-
+          acc << File.join(dirname, child)
           acc
         end
     end
@@ -85,11 +80,6 @@ module DataPipe
     end
 
     private
-
-    def guess_resource_type(resource_path)
-      ext = File.extname(resource_path)
-      ext.slice(1, ext.size).to_sym
-    end
 
     def prepare_steps
       pipe.reduce(NullStep.new) do |upstream, current|

@@ -19,14 +19,7 @@ module DataPipe::Step::SchemaHelper
       return unless params.format?
       return if !params.required? && value.to_s.empty?
 
-      ret_value = ""
-      if value.is_a? ::String
-        ret_value = value.strip
-      else # is a Date
-        ret_value = value.strftime(params.format)
-
-        record.data[field] = ret_value
-      end
+      ret_value = value.strip
 
       return params.default if ret_value.empty? && params.default?
 

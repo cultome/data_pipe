@@ -1,7 +1,7 @@
 require "ostruct"
 require "rubyXL"
 require "data_pipe/record"
-require "data_pipe/steppable"
+require "data_pipe/stepable"
 
 module DataPipe::Step
   class XlsxLoader

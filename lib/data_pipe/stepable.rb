@@ -27,7 +27,7 @@ module DataPipe::Stepable
   end
 
   def process(record)
-    raise "must implement first"
+    raise "must implement it first!"
   end
 
   def iter

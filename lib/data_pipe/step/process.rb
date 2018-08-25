@@ -1,7 +1,7 @@
 
 module DataPipe::Step
   class Process
-    include DataPipe::Steppable
+    include DataPipe::Stepable
 
     def step_command
       :map

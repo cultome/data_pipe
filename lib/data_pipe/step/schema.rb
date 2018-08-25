@@ -3,7 +3,7 @@ require 'data_pipe/step/schema_helper/date'
 require 'data_pipe/step/schema_helper/string'
 require 'data_pipe/step/schema_helper/int'
 require 'data_pipe/step/schema_helper/float'
-require "data_pipe/steppable"
+require "data_pipe/stepable"
 
 module DataPipe::Step
   class Schema

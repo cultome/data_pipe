@@ -1,5 +1,5 @@
 require "elasticsearch"
-require "data_pipe/steppable"
+require "data_pipe/stepable"
 
 module DataPipe::Step
   class ElasticsearchWriter

@@ -1,4 +1,4 @@
-require "data_pipe/steppable"
+require "data_pipe/stepable"
 require "csv"
 
 module DataPipe::Step
@@ -9,10 +9,6 @@ module DataPipe::Step
 
     def step_command
       :write_to_csv
-    end
-
-    def write_header?
-      params.headers.nil? ? false : params.headers
     end
 
     def iter
@@ -34,6 +30,12 @@ module DataPipe::Step
           rsp << record
         end
       end
+    end
+
+    private
+
+    def write_header?
+      params.headers.nil? ? false : params.headers
     end
   end
 end

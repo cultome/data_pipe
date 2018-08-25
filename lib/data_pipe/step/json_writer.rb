@@ -1,5 +1,5 @@
 require "json"
-require "data_pipe/steppable"
+require "data_pipe/stepable"
 
 module DataPipe::Step
   class JsonWriter
@@ -7,10 +7,6 @@ module DataPipe::Step
 
     def step_command
       :write_to_json
-    end
-
-    def write_header?
-      false
     end
 
     def process(record)
