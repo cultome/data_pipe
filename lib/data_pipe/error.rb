@@ -9,9 +9,9 @@ module DataPipe::Error
       @original_error = error
 
       if error.is_a? String
-        @original_error = OpenStruct.new({
+        @original_error = OpenStruct.new(
           message: error,
-        })
+        )
       end
     end
 

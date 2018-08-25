@@ -84,7 +84,7 @@ RSpec.describe "Iterator behavior" do
   def prepare_step(step, args={}, &blk)
     step
       .prepare(OpenStruct.new(args), &blk)
-      .set_input [DataPipe::Record.new({"a" => "test a", "b" => "test b"})]
+      .set_input [DataPipe::Record.new("a" => "test a", "b" => "test b")]
   end
 
   def check_iterator(it)

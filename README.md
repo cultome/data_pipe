@@ -36,6 +36,7 @@ Or install it yourself as:
 
 ## TODO
 
+ * El paso flatten es optimista en cuanto a la estructura homogenea de los records
  * Agregar logica para eliminar datos mapeados que regresen nil
  * Improve naming of the transformations steps
  * Filter by date criterias (in general operate with date data)
