@@ -2,7 +2,7 @@
 
 host=http://localhost:9200
 
-curl -k -XDELETE --silent "$host/data_pipe,backup?pretty"
+curl -k -XDELETE --silent "$host/data_pipe,backup,nested?pretty"
 
 curl -k -XPUT --silent "$host/data_pipe?pretty" --header 'Content-Type: application/json' --data '
 {
@@ -60,11 +60,49 @@ curl -k -XPUT --silent "$host/backup?pretty" --header 'Content-Type: application
 }
 '
 
+curl -k -XPUT --silent "$host/nested?pretty" --header 'Content-Type: application/json' --data '
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 1
+  },
+  "mappings": {
+    "data": {
+      "properties" : {
+        "nine" : {
+          "properties" : {
+            "nest_one": {
+              "type" : "keyword"
+            },
+            "nest_two": {
+              "type" : "keyword"
+            }
+          }
+        },
+        "ten" : {
+          "type" : "keyword"
+        }
+      }
+    }
+  }
+}
+'
+
 curl -X POST --silent "$host/data_pipe/data?pretty" --header "Content-Type: application/json" --data '
 {
 	"one": "data_pipe",
 	"two": "data pipe",
 	"three": 42,
 	"four": "2018-08-24 21:41:22"
+}
+'
+
+curl -X POST --silent "$host/nested/data?pretty" --header "Content-Type: application/json" --data '
+{
+  "nine": {
+    "nest_one": "data_pipe",
+    "nest_two": ["one", "two"]
+  },
+	"ten": ["three", "four"]
 }
 '

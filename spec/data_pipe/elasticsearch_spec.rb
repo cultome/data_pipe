@@ -68,7 +68,7 @@ RSpec.describe "Elasticsearch" do
       expect(result).to eq expected
     end
 
-    it "writes to CSV" do
+    it "writes plain documents to CSV" do
       output = StringIO.new
 
       DataPipe.create do
@@ -84,6 +84,26 @@ RSpec.describe "Elasticsearch" do
       expect(output.string).to eq <<-TEXT
 one,two,three,four
 data_pipe,data pipe,42,2018-08-24 21:41:22
+      TEXT
+    end
+
+    it "writes nested documents to CSV" do
+      output = StringIO.new
+
+      DataPipe.create do
+        log_to StringIO.new
+
+        load_from_elasticsearch({
+          index: "nested",
+          url: "http://localhost:9200",
+        })
+        flatten
+        write_to_csv stream: output, headers: true
+      end.process!
+
+      expect(output.string).to eq <<-TEXT
+nine.nest_one,nine.nest_two,ten
+data_pipe,one|two,three|four
       TEXT
     end
 
