@@ -2,7 +2,7 @@ require "data_pipe/steppable"
 
 module DataPipe::Step
   class ErrorHandler
-    include DataPipe::Steppable
+    include DataPipe::Stepable
 
     attr_reader :fnc
 

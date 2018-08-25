@@ -7,7 +7,7 @@ require "data_pipe/steppable"
 
 module DataPipe::Step
   class Schema
-    include DataPipe::Steppable
+    include DataPipe::Stepable
 
     def step_command
       :apply_schema

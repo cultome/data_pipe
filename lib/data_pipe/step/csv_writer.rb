@@ -3,7 +3,7 @@ require "csv"
 
 module DataPipe::Step
   class CsvWriter
-    include DataPipe::Steppable
+    include DataPipe::Stepable
 
     SEPARATOR = ","
 

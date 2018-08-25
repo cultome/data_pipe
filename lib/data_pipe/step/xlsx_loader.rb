@@ -5,7 +5,7 @@ require "data_pipe/steppable"
 
 module DataPipe::Step
   class XlsxLoader
-    include DataPipe::Steppable
+    include DataPipe::Stepable
 
     def prepare(params=EMPTY_PARAMS, &blk)
       @params = params

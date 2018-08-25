@@ -59,5 +59,20 @@ date,string,int,float
 test,test,test,test
       FILE
     end
+
+    it "visit registry" do
+      tapped = false
+
+      DataPipe.create do
+        log_to StringIO.new
+
+        load_from_csv stream: "spec/sample/1.csv", headers: true
+        tap do |record|
+          tapped = true
+        end
+      end.process!
+
+      expect(tapped).to be true
+    end
   end
 end

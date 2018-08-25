@@ -5,7 +5,7 @@ require "data_pipe/steppable"
 
 module DataPipe::Step
   class ElasticsearchLoader
-    include DataPipe::Steppable
+    include DataPipe::Stepable
 
     def step_command
       :load_from_elasticsearch

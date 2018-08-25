@@ -3,7 +3,7 @@ require "data_pipe/steppable"
 
 module DataPipe::Step
   class Tap
-    include DataPipe::Steppable
+    include DataPipe::Stepable
 
     def step_command
       :tap
