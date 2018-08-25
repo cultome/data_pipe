@@ -2,6 +2,22 @@
 
 Framework to create data processing pipelines.
 
+## Usage
+
+ * CsvLoader
+ * CsvWriter
+ * ElasticsearchLoader
+ * ElasticsearchWriter
+ * ErrorHandler
+ * Filter
+ * JsonLoader
+ * JsonWriter
+ * Map
+ * Process
+ * Schema
+ * Tap
+ * XlsxLoader
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -30,10 +46,6 @@ Or install it yourself as:
  * Add loaders for databases
  * Improve processing information (inside pipeline)
  * Change root property (for JSON loader)
-
-## Usage
-
-TODO: Write usage instructions here
 
 ## Development
 

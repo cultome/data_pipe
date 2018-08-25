@@ -53,7 +53,7 @@ RSpec.describe "Schema definition and validations" do
 
         load_from_csv stream: "spec/sample/1.csv", headers: true
         apply_schema definition: {
-          "string" => string_field(format: /^[A-Z]/),
+          "string" => string_field(format: /^[A-Z]/, required: true),
         }
         write_to_csv stream: output
       end.process!
