@@ -68,6 +68,25 @@ RSpec.describe "Elasticsearch" do
       expect(result).to eq expected
     end
 
+    it "writes to CSV" do
+      output = StringIO.new
+
+      DataPipe.create do
+        log_to StringIO.new
+
+        load_from_elasticsearch({
+          index: "data_pipe",
+          url: "http://localhost:9200",
+        })
+        write_to_csv stream: output, headers: true
+      end.process!
+
+      expect(output.string).to eq <<-TEXT
+one,two,three,four
+data_pipe,data pipe,42,2018-08-24 21:41:22
+      TEXT
+    end
+
     def client
       @client ||= Elasticsearch::Client.new(url: "http://localhost:9200")
     end

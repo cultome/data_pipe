@@ -32,7 +32,7 @@ module DataPipe::Step
           total_docs = results['hits']['total']
 
           results['hits']['hits'].each do |hit|
-            record = Record.new(hit['_source'])
+            record = Record.new(hit['_source'], OpenStruct.new(headers: true))
             rsp << record
           end
 

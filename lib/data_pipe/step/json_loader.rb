@@ -14,7 +14,7 @@ module DataPipe::Step
     def iter
       Enumerator.new do |rsp|
         JSON.load(open(params.stream)).each do |obj|
-          rsp << Record.new(obj)
+          rsp << Record.new(obj, OpenStruct.new(headers: true))
         end
       end
     end
