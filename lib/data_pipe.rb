@@ -4,6 +4,9 @@ require "data_pipe/version"
 require 'data_pipe/error'
 require 'data_pipe/null_step'
 require 'data_pipe/loggable'
+require "data_pipe/refinements"
+
+using DataPipe::StringUtils
 
 module DataPipe
   def self.create(&blk)

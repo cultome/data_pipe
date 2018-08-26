@@ -10,5 +10,17 @@ RSpec.describe "Refinements" do
     expect("uno de dos".titlecase).to eq "Uno de Dos"
     expect("de dos uno".titlecase).to eq "De Dos Uno"
   end
+
+  it "is available inside pipeline" do
+      pipe = DataPipe.create do
+        load_from_csv stream: "spec/sample/1.csv", headers: true
+
+        map do |record|
+          (" uno ".strip.titlecase)
+        end
+      end
+
+      expect{ pipe.process! }.not_to raise_error
+  end
 end
 
