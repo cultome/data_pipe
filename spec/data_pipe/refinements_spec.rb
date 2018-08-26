@@ -2,7 +2,7 @@ using DataPipe::StringUtils
 
 RSpec.describe "Refinements" do
   it "strip spaces in a string" do
-    expect(" uno ".strip).to eq "uno"
+    expect(" uno ".strip_spaces).to eq "uno"
   end
 
   it "titlecase a phrase" do
@@ -16,7 +16,7 @@ RSpec.describe "Refinements" do
         load_from_csv stream: "spec/sample/1.csv", headers: true
 
         map do |record|
-          (" uno ".strip.titlecase)
+          (" uno ".strip_spaces.titlecase)
         end
       end
 

@@ -1,8 +1,12 @@
 
 module DataPipe::StringUtils
   refine String do
-    def strip
-      self.gsub("\u00A0", " ").lstrip.rstrip
+    def strip_spaces
+      self
+        .gsub("\u00A0", " ")
+        .gsub("\n", "")
+        .gsub("\s+", " ")
+        .lstrip.rstrip
     end
 
     def titlecase

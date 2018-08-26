@@ -19,7 +19,7 @@ module DataPipe::Step::SchemaHelper
       return unless params.format?
       return if !params.required? && value.to_s.empty?
 
-      ret_value = value.strip
+      ret_value = value.strip_spaces
 
       return params.default if ret_value.empty? && params.default?
 

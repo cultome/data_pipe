@@ -15,7 +15,7 @@ module DataPipe::Step::SchemaHelper
     end
 
     def apply(value, field, record=nil)
-      float_value = value.to_s.strip.gsub(",", "")
+      float_value = value.to_s.strip_spaces.gsub(",", "")
       return if !params.required? && float_value.to_s.empty?
 
       return params.default if float_value.to_s.empty? && params.default?

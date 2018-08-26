@@ -15,7 +15,7 @@ module DataPipe::Step::SchemaHelper
     end
 
     def apply(value, field, record)
-      ret_value = value.to_s.strip
+      ret_value = value.to_s.strip_spaces
       return params.default if ret_value.empty? && params.default?
 
       if params.required?
