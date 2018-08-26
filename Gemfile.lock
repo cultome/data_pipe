@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    data_pipe (0.15.0)
+    data_pipe (0.16.0)
 
 GEM
   remote: https://rubygems.org/

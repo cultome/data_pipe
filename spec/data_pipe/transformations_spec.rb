@@ -1,7 +1,7 @@
 
 RSpec.describe "Transformations" do
   context "apply transformations" do
-    it "filter fields" do
+    it "select fields" do
       output = StringIO.new
 
       DataPipe.create do
@@ -15,6 +15,23 @@ RSpec.describe "Transformations" do
       expect(output.string).to eq <<-FILE
 string,int
 Carlos,34
+      FILE
+    end
+
+    it "excludes fields" do
+      output = StringIO.new
+
+      DataPipe.create do
+        log_to StringIO.new
+
+        load_from_csv stream: "spec/sample/1.csv", headers: true
+        filter_properties exclude: true, keys: ["string", "int"]
+        write_to_csv stream: output, headers: true
+      end.process!
+
+      expect(output.string).to eq <<-FILE
+date,float
+2118-12-31,1.85
       FILE
     end
 

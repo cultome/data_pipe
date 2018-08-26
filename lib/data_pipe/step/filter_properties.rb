@@ -8,7 +8,11 @@ module DataPipe::Step
     end
 
     def process(record)
-      filtered = record.data.select{|k,v| params.keys.include? k}
+      filtered = record.data.select do |k,v|
+        included = params.keys.include? k
+
+        !params.exclude.nil? && params.exclude ? !included : included
+      end
       Record.new(filtered, record.params)
     end
   end
