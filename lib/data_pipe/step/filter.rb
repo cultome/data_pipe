@@ -8,7 +8,7 @@ module DataPipe::Step
     end
 
     def process(record)
-      fnc.call(record.data) ? record : nil
+      fnc.call(record) ? record : nil
     end
   end
 end

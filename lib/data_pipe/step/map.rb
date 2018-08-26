@@ -8,8 +8,7 @@ module DataPipe::Step
     end
 
     def process(record)
-      new_value = fnc.call(record.data)
-      Record.new(new_value, record.params)
+      fnc.call(record)
     end
   end
 end

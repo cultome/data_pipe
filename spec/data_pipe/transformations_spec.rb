@@ -29,7 +29,7 @@ Carlos,34
           "age" => int_field,
         }
         filter_records do |record|
-          record["age"] > 18
+          record.data["age"] > 18
         end
         write_to_csv stream: output, headers: true
       end.process!
@@ -41,7 +41,7 @@ Carlos,34,csoria@cultome.io
       FILE
     end
 
-    it "custom process fields" do
+    it "map records" do
       output = StringIO.new
 
       DataPipe.create do
@@ -49,7 +49,8 @@ Carlos,34,csoria@cultome.io
 
         load_from_csv stream: "spec/sample/1.csv", headers: true
         map do |record|
-          record.reduce({}){|acc,(k,_)| acc[k] = "test"; acc }
+          record.data.keys.each{|k| record.data[k] = "test" }
+          record
         end
         write_to_csv stream: output, headers: true
       end.process!
