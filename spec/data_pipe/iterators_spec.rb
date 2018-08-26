@@ -31,13 +31,13 @@ RSpec.describe "Iterator behavior" do
       check_iterator step
     end
 
-    it "transformation/process" do
-      step = prepare_step(DataPipe::Step::Process.new){|r| r }
+    it "transformation/map" do
+      step = prepare_step(DataPipe::Step::Map.new){|r| r }
       check_iterator step
     end
 
-    it "transformation/map" do
-      step = prepare_step(DataPipe::Step::Map.new, keys: ["a", "b"])
+    it "transformation/filter_properties" do
+      step = prepare_step(DataPipe::Step::FilterProperties.new, keys: ["a", "b"])
       check_iterator step
     end
   end
@@ -70,13 +70,13 @@ RSpec.describe "Iterator behavior" do
       check_iterator step.each
     end
 
-    it "transformation/process" do
-      step = prepare_step(DataPipe::Step::Process.new){|r| r }
+    it "transformation/map" do
+      step = prepare_step(DataPipe::Step::Map.new){|r| r }
       check_iterator step.each
     end
 
-    it "transformation/map" do
-      step = prepare_step(DataPipe::Step::Map.new, keys: ["a", "b"])
+    it "transformation/filter_properties" do
+      step = prepare_step(DataPipe::Step::FilterProperties.new, keys: ["a", "b"])
       check_iterator step.each
     end
   end

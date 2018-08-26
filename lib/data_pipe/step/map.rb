@@ -4,12 +4,12 @@ module DataPipe::Step
     include DataPipe::Stepable
 
     def step_command
-      :filter_properties
+      :map
     end
 
     def process(record)
-      filtered = record.data.select{|k,v| params.keys.include? k}
-      Record.new(filtered, record.params)
+      new_value = fnc.call(record.data)
+      Record.new(new_value, record.params)
     end
   end
 end
