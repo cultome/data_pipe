@@ -22,6 +22,12 @@ module DataPipe::Step
       record
     end
 
+    def default_params
+      {
+        url: "http://localhost:9200",
+      }
+    end
+
     private
 
     def client
