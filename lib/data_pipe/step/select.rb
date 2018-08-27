@@ -1,10 +1,10 @@
 
 module DataPipe::Step
-  class Filter
+  class Select
     include DataPipe::Stepable
 
     def step_command
-      :filter_records
+      :select
     end
 
     def process(record)
