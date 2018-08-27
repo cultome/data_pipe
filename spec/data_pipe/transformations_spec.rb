@@ -78,6 +78,25 @@ test,test,test,test
       FILE
     end
 
+    it "map records with hash" do
+      output = StringIO.new
+
+      DataPipe.create do
+        log_to StringIO.new
+
+        load_from_csv file: "spec/sample/1.csv", headers: true
+        map do |record|
+          record.data.keys.reduce({}){|acc,key| acc[key] = "test"; acc}
+        end
+        write_to_csv stream: output, headers: true
+      end.process!
+
+      expect(output.string).to eq <<-FILE
+date,string,int,float
+test,test,test,test
+      FILE
+    end
+
     it "visit registry" do
       tapped = false
 
