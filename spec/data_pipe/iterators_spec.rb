@@ -26,7 +26,7 @@ RSpec.describe "Iterator behavior" do
     end
 
     it "transformation/filter" do
-      step = prepare_step(DataPipe::Step::Filter.new){|r| true }
+      step = prepare_step(DataPipe::Step::Select.new){|r| true }
       check_iterator step
     end
 
@@ -65,7 +65,7 @@ RSpec.describe "Iterator behavior" do
     end
 
     it "transformation/filter" do
-      step = prepare_step(DataPipe::Step::Filter.new){|r| true }
+      step = prepare_step(DataPipe::Step::Select.new){|r| true }
       check_iterator step.each
     end
 

@@ -32,7 +32,6 @@ RSpec.describe "Elasticsearch" do
         write_to_elasticsearch(
           index: "backup",
           type: "data",
-          url: "http://localhost:9200",
           record: ->(record) {{
             "five": record.data["one"],
             "six": record.data["two"],

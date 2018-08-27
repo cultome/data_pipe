@@ -45,7 +45,7 @@ date,float
         apply_schema definition: {
           "age" => int_field,
         }
-        filter_records do |record|
+        select do |record|
           record.data["age"] > 18
         end
         write_to_csv stream: output, headers: true

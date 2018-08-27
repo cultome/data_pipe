@@ -8,9 +8,10 @@ RSpec.describe "Handle of XLSX files" do
         log_to StringIO.new
 
         load_from_xlsx(
-          stream: "spec/sample/1.xlsx",
+          file: "spec/sample/1.xlsx",
           sheet: "Compilado",
           first_data_row: 3,
+          headers: false,
         )
         write_to_csv stream: output, headers: false
       end.process!
@@ -27,9 +28,10 @@ RSpec.describe "Handle of XLSX files" do
         log_to StringIO.new
 
         load_from_xlsx(
-          stream: "spec/sample/1.xlsx",
+          file: "spec/sample/1.xlsx",
           sheet: "Compilado",
           first_data_row: 1,
+          headers: false,
         )
         write_to_csv stream: output, headers: true
       end.process!
@@ -50,7 +52,7 @@ Folio,Fecha,Nivel 1A,Nivel 2A,Nivel 3A,Nivel 1B*,Nivel 2B*,Nivel 3B*,Nivel 1C*,N
         log_to StringIO.new
 
         load_from_xlsx(
-          stream: "spec/sample/1.xlsx",
+          file: "spec/sample/1.xlsx",
           sheet: "Compilado",
           header_row: 1,
           first_data_row: 3,
@@ -70,7 +72,7 @@ Folio,Fecha,Nivel 1A,Nivel 2A,Nivel 3A,Nivel 1B*,Nivel 2B*,Nivel 3B*,Nivel 1C*,N
         log_to StringIO.new
 
         load_from_xlsx(
-          stream: "spec/sample/1.xlsx",
+          file: "spec/sample/1.xlsx",
           sheet: "Compilado",
           header_row: 1,
           first_data_row: 3,
