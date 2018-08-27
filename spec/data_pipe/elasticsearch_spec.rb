@@ -14,10 +14,7 @@ RSpec.describe "Elasticsearch" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_elasticsearch(
-          index: "data_pipe",
-          url: "http://localhost:9200",
-        )
+        load_from_elasticsearch index: "data_pipe"
         write_to_json stream: output, headers: true
       end.process!
 
@@ -30,10 +27,7 @@ RSpec.describe "Elasticsearch" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_elasticsearch(
-          index: "data_pipe",
-          url: "http://localhost:9200",
-        )
+        load_from_elasticsearch index: "data_pipe"
 
         write_to_elasticsearch(
           index: "backup",
@@ -74,10 +68,7 @@ RSpec.describe "Elasticsearch" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_elasticsearch(
-          index: "data_pipe",
-          url: "http://localhost:9200",
-        )
+        load_from_elasticsearch index: "data_pipe"
         write_to_csv stream: output, headers: true
       end.process!
 
@@ -93,10 +84,7 @@ data_pipe,data pipe,42,2018-08-24 21:41:22
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_elasticsearch(
-          index: "nested",
-          url: "http://localhost:9200",
-        )
+        load_from_elasticsearch index: "nested"
         flatten
         write_to_csv stream: output, headers: true
       end.process!

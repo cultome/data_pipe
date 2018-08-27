@@ -11,7 +11,6 @@ module DataPipe::Step
     end
 
     def iter
-      batch_size = 100
       current_page = 0
       total_docs = 0
 
@@ -20,7 +19,7 @@ module DataPipe::Step
           results = client.search(
             index: params.index,
             body: {
-              size: batch_size,
+              size: params.batch_size,
               from: current_page,
               query: {
                 match_all: {}
@@ -35,15 +34,23 @@ module DataPipe::Step
             rsp << record
           end
 
-          current_page += batch_size
+          current_page += params.batch_size
         end while total_docs >= current_page
       end
+    end
+
+    def default_params
+      {
+        url: "http://localhost:9200",
+        log_enabled: false,
+        batch_size: 100,
+      }
     end
 
     private
 
     def client
-      @client ||= Elasticsearch::Client.new(url: params.url, log: false)
+      @client ||= Elasticsearch::Client.new(url: params.url, log: params.log_enabled)
     end
   end
 end
