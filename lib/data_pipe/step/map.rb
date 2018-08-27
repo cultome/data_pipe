@@ -1,3 +1,4 @@
+require "data_pipe/record"
 
 module DataPipe::Step
   class Map
@@ -8,7 +9,12 @@ module DataPipe::Step
     end
 
     def process(record)
-      fnc.call(record)
+      result = fnc.call(record)
+      if result.is_a? Record
+        result
+      elsif result.is_a? Hash
+        Record.new(result, record.params)
+      end
     end
   end
 end
