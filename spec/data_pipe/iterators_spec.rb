@@ -1,4 +1,3 @@
-require "ostruct"
 
 RSpec.describe "Iterator behavior" do
   let(:output){ StringIO.new }
@@ -22,7 +21,7 @@ RSpec.describe "Iterator behavior" do
     end
 
     it "loader/csv" do
-      step = DataPipe::Step::CsvLoader.new.prepare(OpenStruct.new(stream: "spec/sample/4.csv", headers: true))
+      step = DataPipe::Step::CsvLoader.new.prepare(stream: "spec/sample/4.csv", headers: true)
       check_iterator step
     end
 
@@ -61,7 +60,7 @@ RSpec.describe "Iterator behavior" do
     end
 
     it "loader/csv" do
-      step = DataPipe::Step::CsvLoader.new.prepare(OpenStruct.new(stream: "spec/sample/4.csv", headers: true))
+      step = DataPipe::Step::CsvLoader.new.prepare(stream: "spec/sample/4.csv", headers: true)
       check_iterator step.each
     end
 
@@ -83,7 +82,7 @@ RSpec.describe "Iterator behavior" do
 
   def prepare_step(step, args={}, &blk)
     step
-      .prepare(OpenStruct.new(args), &blk)
+      .prepare(args, &blk)
       .set_input [DataPipe::Record.new("a" => "test a", "b" => "test b")]
   end
 

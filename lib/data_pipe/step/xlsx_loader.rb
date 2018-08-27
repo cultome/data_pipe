@@ -1,4 +1,3 @@
-require "ostruct"
 require "rubyXL"
 require "data_pipe/record"
 require "data_pipe/stepable"
@@ -7,13 +6,12 @@ module DataPipe::Step
   class XlsxLoader
     include DataPipe::Stepable
 
-    def prepare(params=EMPTY_PARAMS, &blk)
-      @params = params
-      @fnc = blk
+    def prepare(params={}, &blk)
+      super
 
-      params.sheet = 0 unless params.respond_to? :sheet
-      params.first_data_row = 1 unless params.respond_to? :first_data_row
-      params.headers = params.respond_to? :header_row
+      @params.sheet = 0 unless @params.respond_to? :sheet
+      @params.first_data_row = 1 unless @params.respond_to? :first_data_row
+      @params.headers = @params.respond_to? :header_row
 
       self
     end

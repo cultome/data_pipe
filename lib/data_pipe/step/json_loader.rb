@@ -1,4 +1,3 @@
-require "ostruct"
 require "json"
 require "data_pipe/record"
 require "data_pipe/stepable"
@@ -14,7 +13,7 @@ module DataPipe::Step
     def iter
       Enumerator.new do |rsp|
         JSON.load(open(params.stream)).each do |obj|
-          rsp << Record.new(obj, OpenStruct.new(headers: true))
+          rsp << Record.new(obj, headers: true)
         end
       end
     end

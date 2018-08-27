@@ -1,4 +1,3 @@
-require 'ostruct'
 require "active_support/inflector"
 require "data_pipe/version"
 require 'data_pipe/error'
@@ -48,8 +47,7 @@ module DataPipe
         cmd_name = instance.step_command
         Pipe.define_method cmd_name do |args={}, &blk|
           local_instance = step.new
-          params = OpenStruct.new(args)
-          pipe << local_instance.prepare(params, &blk)
+          pipe << local_instance.prepare(args, &blk)
         end
       end
       .each do |step|
@@ -59,8 +57,7 @@ module DataPipe
         cmd_name = instance.helper_command
         Pipe.define_method cmd_name do |args={}, &blk|
           local_instance = step.new
-          params = OpenStruct.new(args)
-          local_instance.prepare(params, &blk).send(cmd_name)
+          local_instance.prepare(args, &blk).send(cmd_name)
         end
       end
   end

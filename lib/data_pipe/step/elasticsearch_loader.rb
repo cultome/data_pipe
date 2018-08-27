@@ -1,4 +1,3 @@
-require "ostruct"
 require "elasticsearch"
 require "data_pipe/record"
 require "data_pipe/stepable"
@@ -32,7 +31,7 @@ module DataPipe::Step
           total_docs = results['hits']['total']
 
           results['hits']['hits'].each do |hit|
-            record = Record.new(hit['_source'], OpenStruct.new(headers: true))
+            record = Record.new(hit['_source'], headers: true)
             rsp << record
           end
 

@@ -10,7 +10,7 @@ module DataPipe::Step::SchemaHelper
       :int_field
     end
 
-    def int_field(params=EMPTY_PARAMS, &blk)
+    def int_field(params={}, &blk)
       self
     end
 

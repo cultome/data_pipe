@@ -1,3 +1,4 @@
+require "ostruct"
 require "data_pipe/loggable"
 
 module DataPipe::Stepable
@@ -8,12 +9,14 @@ module DataPipe::Stepable
   attr_reader :params
   attr_reader :fnc
 
-  EMPTY_PARAMS = OpenStruct.new({})
-
-  def prepare(params=EMPTY_PARAMS, &blk)
-    @params = params
+  def prepare(params={}, &blk)
+    @params = OpenStruct.new(default_params.merge(params))
     @fnc = blk
     self
+  end
+
+  def default_params
+    {}
   end
 
   def set_input(input)

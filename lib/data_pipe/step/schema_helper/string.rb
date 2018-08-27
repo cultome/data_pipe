@@ -10,7 +10,7 @@ module DataPipe::Step::SchemaHelper
       :string_field
     end
 
-    def string_field(data=EMPTY_PARAMS, &blk)
+    def string_field(data={}, &blk)
       self
     end
 

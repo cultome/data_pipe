@@ -4,6 +4,19 @@ Framework to create data processing pipelines.
 
 ## Usage
 
+Lets say we need to export an Elasticsearch's index into a CSV file.
+
+```ruby
+DataPipe.create do
+  load_from_elasticsearch(          # Loads batches of docs from ES index
+    index: "open_source_data",      # and pass it down the pipeline
+    url: "https://localhost:9200",
+  )
+
+  write_to_csv file: "index.csv", headers: true
+end.process!
+```
+
  * CsvLoader
  * CsvWriter
  * ElasticsearchLoader

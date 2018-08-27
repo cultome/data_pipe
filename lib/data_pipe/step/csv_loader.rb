@@ -1,4 +1,3 @@
-require "ostruct"
 require "csv"
 require "data_pipe/record"
 require "data_pipe/stepable"
@@ -27,12 +26,10 @@ module DataPipe::Step
 
     def get_record(row)
       if row.respond_to? :headers
-        props = OpenStruct.new(headers: true)
-        record = Record.new(row.to_h, props)
+        record = Record.new(row.to_h, headers: true)
       else
         data = (0...row.size).map(&:to_s).zip(row)
-        props = OpenStruct.new(headers: false)
-        record = Record.new(data.to_h, props)
+        record = Record.new(data.to_h, headers: false)
       end
 
       return record

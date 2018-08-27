@@ -4,14 +4,12 @@ module DataPipe::Step::SchemaHelper
   class FieldSchema
     attr_reader :params
 
-    EMPTY_PARAMS = OpenStruct.new({})
-
     def apply(value, field, record)
       raise "must implement it first!"
     end
 
-    def prepare(params=EMPTY_PARAMS, &blk)
-      @params = params
+    def prepare(params={}, &blk)
+      @params = OpenStruct.new(default_params.merge(params))
       @fnc = blk
 
       @params.each_pair do |key, val|
@@ -27,6 +25,10 @@ module DataPipe::Step::SchemaHelper
       end
 
       self
+    end
+
+    def default_params
+      {}
     end
   end
 end

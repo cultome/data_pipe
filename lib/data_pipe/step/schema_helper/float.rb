@@ -10,7 +10,7 @@ module DataPipe::Step::SchemaHelper
       :float_field
     end
 
-    def float_field(params=EMPTY_PARAMS, &blk)
+    def float_field(params={}, &blk)
       self
     end
 

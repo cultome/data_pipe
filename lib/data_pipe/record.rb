@@ -5,11 +5,9 @@ module DataPipe
     attr_reader :data
     attr_reader :params
 
-    EMPTY_PARAMS = OpenStruct.new({})
-
-    def initialize(data, opts=EMPTY_PARAMS)
+    def initialize(data, opts={})
       @data = data
-      @params = opts
+      @params = OpenStruct.new(opts)
     end
 
     def values

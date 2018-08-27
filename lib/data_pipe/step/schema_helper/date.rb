@@ -11,7 +11,7 @@ module DataPipe::Step::SchemaHelper
       :date_field
     end
 
-    def date_field(params=EMPTY_PARAMS, &blk)
+    def date_field(params={}, &blk)
       self
     end
 
