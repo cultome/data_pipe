@@ -6,23 +6,13 @@ module DataPipe::Step
   class XlsxLoader
     include DataPipe::Stepable
 
-    def prepare(params={}, &blk)
-      super
-
-      @params.sheet = 0 unless @params.respond_to? :sheet
-      @params.first_data_row = 1 unless @params.respond_to? :first_data_row
-      @params.headers = @params.respond_to? :header_row
-
-      self
-    end
-
     def step_command
       :load_from_xlsx
     end
 
     def iter
       Enumerator.new do |rsp|
-        workbook = RubyXL::Parser.parse(params.stream)
+        workbook = RubyXL::Parser.parse(params.file)
         worksheet = workbook[params.sheet]
         headers = []
 
@@ -42,6 +32,15 @@ module DataPipe::Step
           rsp << record unless record.data.empty?
         end
       end
+    end
+
+    def default_params
+      {
+        sheet: 0,
+        first_data_row: 2,
+        header_row: 1,
+        headers: true,
+      }
     end
 
     private
