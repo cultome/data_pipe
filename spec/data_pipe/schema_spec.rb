@@ -7,7 +7,7 @@ RSpec.describe "Schema definition and validations" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/1.csv"
+        load_from_csv file: "spec/sample/1.csv"
         apply_schema definition: {
           "date" => date_field(format: "%Y-%m-%d"),
         }
@@ -23,7 +23,7 @@ RSpec.describe "Schema definition and validations" do
       pipe = DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/1.csv", headers: true
+        load_from_csv file: "spec/sample/1.csv", headers: true
         apply_schema definition: {
           "date" => date_field(format: "%Y-%m-%d", past_only: true),
         }
@@ -36,7 +36,7 @@ RSpec.describe "Schema definition and validations" do
       pipe = DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/1.csv", headers: true
+        load_from_csv file: "spec/sample/1.csv", headers: true
         apply_schema definition: {
           "date" => date_field(format: "%m-%d-%Y"),
         }
@@ -51,7 +51,7 @@ RSpec.describe "Schema definition and validations" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/1.csv"
+        load_from_csv file: "spec/sample/1.csv"
         apply_schema definition: {
           "string" => string_field(format: /^[A-Z]/, required: true),
         }
@@ -67,7 +67,7 @@ RSpec.describe "Schema definition and validations" do
       pipe = DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/1.csv", headers: true
+        load_from_csv file: "spec/sample/1.csv", headers: true
         apply_schema definition: {
           "string" => string_field(format: /^[0-9]/),
         }
@@ -82,7 +82,7 @@ RSpec.describe "Schema definition and validations" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/1.csv", headers: true
+        load_from_csv file: "spec/sample/1.csv", headers: true
         apply_schema definition: {
           "int" => int_field(min: 1, max: 100),
         }
@@ -98,7 +98,7 @@ RSpec.describe "Schema definition and validations" do
       pipe = DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/1.csv", headers: true
+        load_from_csv file: "spec/sample/1.csv", headers: true
         apply_schema definition: {
           "int" => int_field(min: 1, max: 10),
         }
@@ -113,7 +113,7 @@ RSpec.describe "Schema definition and validations" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/1.csv", headers: true
+        load_from_csv file: "spec/sample/1.csv", headers: true
         apply_schema definition: {
           "float" => float_field(min: 1, max: 100),
         }
@@ -129,7 +129,7 @@ RSpec.describe "Schema definition and validations" do
       pipe = DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/1.csv", headers: true
+        load_from_csv file: "spec/sample/1.csv", headers: true
         apply_schema definition: {
           "float" => float_field(min: 2, max: 10),
         }

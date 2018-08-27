@@ -21,7 +21,7 @@ RSpec.describe "Iterator behavior" do
     end
 
     it "loader/csv" do
-      step = DataPipe::Step::CsvLoader.new.prepare(stream: "spec/sample/4.csv", headers: true)
+      step = DataPipe::Step::CsvLoader.new.prepare(file: "spec/sample/4.csv", headers: true)
       check_iterator step
     end
 
@@ -60,7 +60,7 @@ RSpec.describe "Iterator behavior" do
     end
 
     it "loader/csv" do
-      step = DataPipe::Step::CsvLoader.new.prepare(stream: "spec/sample/4.csv", headers: true)
+      step = DataPipe::Step::CsvLoader.new.prepare(file: "spec/sample/4.csv", headers: true)
       check_iterator step.each
     end
 

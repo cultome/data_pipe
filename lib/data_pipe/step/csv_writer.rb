@@ -5,13 +5,19 @@ module DataPipe::Step
   class CsvWriter
     include DataPipe::Stepable
 
-    SEPARATOR = ","
-
     def step_command
       :write_to_csv
     end
 
     def iter
+      if params.respond_to? :stream
+        output = params.stream
+        close_output = false
+      else
+        output = open(params.file, "w")
+        close_output = true
+      end
+
       Enumerator.new do |rsp|
         wrote_headers = false
 
@@ -20,15 +26,17 @@ module DataPipe::Step
             wrote_headers = true
             line = record.headers.to_csv
 
-            params.stream.puts line
+            output.puts line
             rsp << line
           end
 
           line = record.values.to_csv
 
-          params.stream.puts line
+          output.puts line
           rsp << record
         end
+
+        output.close if close_output
       end
     end
 

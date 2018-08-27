@@ -7,7 +7,7 @@ RSpec.describe "Transformations" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/1.csv", headers: true
+        load_from_csv file: "spec/sample/1.csv", headers: true
         filter_properties keys: ["string", "int"]
         write_to_csv stream: output, headers: true
       end.process!
@@ -24,7 +24,7 @@ Carlos,34
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/1.csv", headers: true
+        load_from_csv file: "spec/sample/1.csv", headers: true
         filter_properties exclude: true, keys: ["string", "int"]
         write_to_csv stream: output, headers: true
       end.process!
@@ -41,7 +41,7 @@ date,float
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/2.csv", headers: true
+        load_from_csv file: "spec/sample/2.csv", headers: true
         apply_schema definition: {
           "age" => int_field,
         }
@@ -64,7 +64,7 @@ Carlos,34,csoria@cultome.io
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/1.csv", headers: true
+        load_from_csv file: "spec/sample/1.csv", headers: true
         map do |record|
           record.data.keys.each{|k| record.data[k] = "test" }
           record
@@ -84,7 +84,7 @@ test,test,test,test
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/1.csv", headers: true
+        load_from_csv file: "spec/sample/1.csv", headers: true
         tap do |record|
           tapped = true
         end

@@ -7,7 +7,7 @@ RSpec.describe "Handle of CSV files" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/1.csv"
+        load_from_csv file: "spec/sample/1.csv"
         write_to_csv stream: output
       end.process!
 
@@ -23,7 +23,7 @@ date,string,int,float
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/1.csv", headers: false
+        load_from_csv file: "spec/sample/1.csv", headers: false
         write_to_csv stream: output, headers: false
       end.process!
 
@@ -41,7 +41,7 @@ date,string,int,float
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/1.csv"
+        load_from_csv file: "spec/sample/1.csv"
         write_to_csv stream: output, headers: false
       end.process!
 
@@ -56,7 +56,7 @@ date,string,int,float
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/1.csv"
+        load_from_csv file: "spec/sample/1.csv"
         write_to_csv stream: output
       end.process!
 

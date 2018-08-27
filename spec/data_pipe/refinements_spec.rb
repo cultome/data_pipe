@@ -13,7 +13,7 @@ RSpec.describe "Refinements" do
 
   it "is available inside pipeline" do
       pipe = DataPipe.create do
-        load_from_csv stream: "spec/sample/1.csv", headers: true
+        load_from_csv file: "spec/sample/1.csv", headers: true
 
         map do |record|
           (" uno ".strip_spaces.titlecase)

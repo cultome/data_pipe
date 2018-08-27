@@ -15,7 +15,7 @@ module DataPipe::Step
         loader_params = {
           headers: params.headers.nil? ? false : params.headers
         }
-        CSV.foreach(params.stream, loader_params) do |row|
+        CSV.foreach(params.file, loader_params) do |row|
           record = get_record(row)
           rsp << record
         end

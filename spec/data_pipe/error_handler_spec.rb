@@ -9,7 +9,7 @@ RSpec.describe "Step to handle pipe errors" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/3.csv"
+        load_from_csv file: "spec/sample/3.csv"
         handle_error do |err|
           exception = err.to_s
           handler_called = true
