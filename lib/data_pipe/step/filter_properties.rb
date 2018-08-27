@@ -10,10 +10,16 @@ module DataPipe::Step
     def process(record)
       filtered = record.data.select do |k,v|
         included = params.keys.include? k
-
-        !params.exclude.nil? && params.exclude ? !included : included
+        params.exclude ? !included : included
       end
+
       Record.new(filtered, record.params)
+    end
+
+    def default_params
+      {
+        exclude: false
+      }
     end
   end
 end
