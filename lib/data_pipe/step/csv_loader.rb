@@ -22,6 +22,12 @@ module DataPipe::Step
       end
     end
 
+    def default_params
+      {
+        headers: true
+      }
+    end
+
     private
 
     def get_record(row)

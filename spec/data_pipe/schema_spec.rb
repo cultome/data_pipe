@@ -7,11 +7,11 @@ RSpec.describe "Schema definition and validations" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/1.csv", headers: true
+        load_from_csv stream: "spec/sample/1.csv"
         apply_schema definition: {
           "date" => date_field(format: "%Y-%m-%d"),
         }
-        write_to_csv stream: output
+        write_to_csv stream: output, headers: false
       end.process!
 
       expect(output.string).to eq <<-FILE
@@ -51,11 +51,11 @@ RSpec.describe "Schema definition and validations" do
       DataPipe.create do
         log_to StringIO.new
 
-        load_from_csv stream: "spec/sample/1.csv", headers: true
+        load_from_csv stream: "spec/sample/1.csv"
         apply_schema definition: {
           "string" => string_field(format: /^[A-Z]/, required: true),
         }
-        write_to_csv stream: output
+        write_to_csv stream: output, headers: false
       end.process!
 
       expect(output.string).to eq <<-FILE

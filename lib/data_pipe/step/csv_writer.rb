@@ -32,6 +32,12 @@ module DataPipe::Step
       end
     end
 
+    def default_params
+      {
+        headers: true
+      }
+    end
+
     private
 
     def write_header?
