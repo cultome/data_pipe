@@ -4,6 +4,7 @@ require 'data_pipe/step/schema_helper/string'
 require 'data_pipe/step/schema_helper/int'
 require 'data_pipe/step/schema_helper/float'
 require "data_pipe/stepable"
+require "data_pipe/error"
 
 module DataPipe::Step
   class Schema
@@ -14,9 +15,18 @@ module DataPipe::Step
     end
 
     def process(record)
-      new_data = check_schema(record)
-      new_record = Record.new(new_data, record.params)
-      new_record
+      begin
+        new_data = check_schema(record)
+        record.params["is_valid?"] = true
+
+        new_record = Record.new(new_data, record.params)
+        new_record
+      rescue DataPipe::Error::ValidationError => ex
+        raise ex unless params.pass_failed
+
+        record.params["is_valid?"] = false
+        record
+      end
     end
 
     private

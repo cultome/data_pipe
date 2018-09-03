@@ -19,7 +19,11 @@ module DataPipe::Step::SchemaHelper
       return unless params.format?
       return if !params.required? && value.to_s.empty?
 
-      ret_value = value.strip_spaces
+      if value.is_a? ::Date
+        ret_value = value.strftime(params.format)
+      else
+        ret_value = value.to_s.strip_spaces
+      end
 
       return params.default if ret_value.empty? && params.default?
 
