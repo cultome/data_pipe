@@ -15,7 +15,7 @@ module DataPipe::Step::SchemaHelper
     end
 
     def apply(value, field, record=nil)
-      float_value = value.to_s.strip_spaces.gsub(" ", "").gsub(",", "")
+      float_value = value.to_s.strip_spaces.gsub(/[^\d.]/, "")
       return if !params.required? && float_value.to_s.empty?
 
       return params.default if float_value.to_s.empty? && params.default?
@@ -34,7 +34,8 @@ module DataPipe::Step::SchemaHelper
 
       fl_val
     rescue Exception => err
-      raise DataPipe::Error::ValidationError.new(record, err)
+      error_msg =  "[#{fl_val}] in field [#{field}] throws [#{err}]"
+      raise DataPipe::Error::ValidationError.new(record, error_msg)
     end
   end
 end

@@ -15,7 +15,7 @@ module DataPipe::Step::SchemaHelper
     end
 
     def apply(value, field, record=nil)
-      int_value = value.to_s.strip_spaces.gsub(" ", "").gsub(",", "")
+      int_value = value.to_s.strip_spaces.gsub(/[^\d]/, "")
       return if !params.required? && int_value.empty?
 
       return params.default if int_value.empty? && params.default?
@@ -32,7 +32,8 @@ module DataPipe::Step::SchemaHelper
 
       int_val
     rescue Exception => err
-      raise DataPipe::Error::ValidationError.new(record, err)
+      error_msg =  "[#{fl_val}] in field [#{field}] throws [#{err}]"
+      raise DataPipe::Error::ValidationError.new(record, error_msg)
     end
   end
 end
